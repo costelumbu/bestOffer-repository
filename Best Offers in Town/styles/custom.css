@@ -1,0 +1,45 @@
+.homeLine {
+    
+  float:left;
+  margin-right: 10px;
+}
+.title {
+    font-weight: bold;
+    font-size: 110%;
+}
+.price{
+    font-size: 100%;
+    font-weight: bold;
+     color: red;
+}
+.discount{
+    font-size: 80%;
+     color: grey;
+}
+.store{
+    font-size: 80%;
+    font-weight: bold;
+}
+.user-logo {
+    float: left;
+    width: 50px;
+}
+
+.user-logo img {
+    width: 70px;
+    height: 70px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+}
+.insideTitle{
+
+        margin-left:10px;
+}
+.ShowMoreBtn{
+    float:right;
+    display:block;
+    margin-right:0px;
+    clear:left;
+
+}

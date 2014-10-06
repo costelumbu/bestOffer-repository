@@ -1,3 +1,258 @@
-<div data-role="view" data-title="Home" data-layout="main" data-model="APP.models.home">
-  <h1 data-bind="html: title"></h1>
+<div data-role="view" id="home" data-layout="layout"  data-model="Offers" data-init="Offers.init" >
+    <div data-role="header" >
+        <div data-role="navbar"   >
+            Best Offers
+            <a data-bind="invisible:userViewModel.moreOffers" data-role="button" data-rel="drawer" href="#left-drawer" data-icon="more" data-align="left" data-click="setMenu"></a>
+            <a data-bind="visible:userViewModel.moreOffers, click: backFromMore" data-role="button"  data-icon="back" data-align="left">Back</a>
+             <a data-role="button" data-rel="drawer" href="#right-drawer" data-icon="action" data-align="right" ></a>
+
+
+        </div>
+    </div>
+          <!--  <a  data-align="right" data-role="button" data-bind="click:search" >test</a>!-->
+        <ul  data-role="listview"><li data-align="right" data-icon="search"> <input type="text" id="search" placeholder="search" data-bind="events: { change: search}, value: userViewModel.ProdFilter"/></li> </ul>  
+    <ul id="OffersListview" data-style="inset" data-role="listview" data-template="activityTemplate"data-bind="source: offers">
+
+    </ul>
+    
 </div>
+<!-----modal view Log in!-->
+<div data-role="modalview" id="modalview-login" style="width: 90%;">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>Login</span>
+            <a data-click="closeModalViewLogin" data-role="button" data-align="right">Cancel</a>
+        </div>
+    </div>
+
+    <ul data-role="listview" data-style="inset">
+        <li><label for="username">Username: <input type="text" id="LogInUsername" value="metro"/></label></li>
+        <li><label for="password">Password: <input type="password" id="LogInPassword" value="metro"/></label></li>
+    </ul>
+    <a  id="modalview-login-button" type="button" data-role="button" data-click="LogIn">Login</a>
+    <a id="modalview-reg-button" type="button" data-role="button" href="views/RegisterView.html">Register</a>
+</div>
+<!-- drawer right-->
+<div data-role="drawer" id="right-drawer" style="width: 120px" data-title="Filter by" data-position="right" data-model="Offers" >
+    <header data-role="header">
+        <div data-role="navbar">
+            <span data-role="view-title"></span>
+        </div>
+    </header>
+    <ul data-role="listview" data-style="inset" >
+        <li ><a data-rel="modalview" href="#modalviewPriceFilter" data-transition="none">Price</a></li>
+        <li><a  data-rel="modalview"href="#modalviewCatFilter" data-transition="none">Category</a></li>
+         <li ><a href="#drawer-drafts" data-transition="none">Location</a></li>
+          <li data-icon="delete" ><a href="#home" data-transition="none" data-bind="click:removeAllFilters">Remove All Filters</a></li>
+        </ul>
+</div>
+<!-- drawer -->
+<div data-role="drawer" id="left-drawer" style="width: 130px" data-title="Menu" data-model="Offers">
+    <header data-role="header">
+        <div data-role="navbar">
+            <span data-role="view-title"></span>
+        </div>
+    </header>
+    <ul data-role="listview" data-style="inset">
+                  <li> <a data-bind="visible:userViewModel.isNotLogged" data-align="right" data-role="button" data-rel="modalview" href="#modalview-login"data-icon="contacts" >LogIn</a></li>
+              
+       
+                <li data-bind="visible:userViewModel.personal" data-icon="organize"><a href="#drawer-drafts" data-transition="none">My wish list</a></li>
+           
+       
+                <li data-bind="visible:userViewModel.business" data-icon="add"><a href="views/addOfferView.html" data-transition="none">Add Offer</a></li>
+                <li data-bind="visible:userViewModel.business" data-icon="organize"><a data-transition="none" data-bind="click:MyOffers">My offers</a></li>
+           
+       
+                <li ><a  data-transition="none">Change skin</a></li>
+                <li data-bind="visible:userViewModel.personal"><a  data-transition="none" data-icon="settings">My Profile</a></li>
+                <li data-bind="visible:userViewModel.business"><a  data-transition="none" data-icon="settings">My Profile</a></li>
+                <li data-bind="invisible:userViewModel.isNotLogged"><a  data-bind= "click:logout" data-role="button" data-icon="reply" >LogOut</a></li>
+
+    </ul>
+</div>
+
+<!-----modal view PriceFilter-->
+<div data-role="modalview" id="modalviewPriceFilter" style="width: 90%;" data-model="Offers">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>Filter by Price</span>
+            <a data-click="closeModalViewPrice" data-role="button" data-align="right">Cancel</a>
+        </div>
+    </div>
+    <ul data-role="listview" data-style="inset" data-type="group">
+        <li> Select filter options
+            <ul><li><label><input name="radio" type="radio" checked="checked" value="asc" data-bind="checked:userViewModel.PriceSort" />Ascending</label></li>
+                <li><label><input name="radio"  type="radio" value="desc" data-bind="checked:userViewModel.PriceSort" />Descending</label></li>
+            </ul>
+          </li> 
+        <li>Price Range
+            <ul> 
+                <li> From <span data-bind="text:userViewModel.PriceMin"></span> Lev.</li>
+                <li> To <span data-bind="text:userViewModel.PriceMax"></span> Lev.</li> 
+                <li><label>Min<input id="slider" type="range" min="1" max="500"  data-bind="value:userViewModel.PriceMin" /></label></li>                
+                <li><label>Max<input id="slider" type="range" min="1" max="500" data-bind="value:userViewModel.PriceMax" /></label></li>
+            </ul>
+        </li>
+    </ul>
+    
+    <a type="button" data-role="button" data-bind="click: applyFilter" >Apply Filter</a>
+    <a type="button" data-role="button" data-bind="click: removeFilterPrice" >Remove Price Filter</a>
+
+</div>
+<!-----modal view Category Filter-->
+<div data-role="modalview" id="modalviewCatFilter" style="width: 90%;" data-model="Offers">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>Filter by Category</span>
+            <a data-click="closeModalViewCat" data-role="button" data-align="right">Cancel</a>
+        </div>
+    </div>
+    <ul data-role="listview" data-style="inset" data-type="group">
+        <li>
+           <ul>
+               <li><label><input name="radio" type="radio" checked="checked" value="Food" data-bind="checked:userViewModel.catFilter" />Food</label></li>
+                <li><label><input name="radio"  type="radio" value="Aparrel" data-bind="checked:userViewModel.catFilter" />Aparrel</label></li>
+                <li><label><input name="radio"  type="radio" value="Electronics" data-bind="checked:userViewModel.catFilter" />Electronics</label></li>
+                <li><label><input name="radio"  type="radio" value="Accesories" data-bind="checked:userViewModel.catFilter" />Accesories</label></li>
+            </ul>
+       </li>
+        
+     </ul>
+    
+    <a type="button" data-role="button" data-bind="click: applyFilter" >Apply Filter</a>
+    <a type="button" data-role="button" data-bind="click: removeFilterCat" >Remove Category Filter</a>
+
+</div>
+
+<!-- offers ListView Template -->
+<script type="text/x-kendo-template" id="activityTemplate">
+    <div data-role="touch" data-bind="events: { tap: activitySelected }" >
+        
+        <div >
+     <img class="homeLine" data-bind="attr:{src: PictureUrl}" alt="styles/images/avatar.png" width="40%" />
+             <span class="title">${Title}</span><br>
+             <span class="price">${Price}  </span> <span class="discount">Lev.</span><br>
+             <span class="discount">${Discount}% discount</span><br>
+              <span class="store">${User().DisplayName}</span> 
+       
+        </div>
+    </div>  
+    
+     
+    
+    
+</script>
+
+<script>
+    function closeModalViewLogin() {
+        $("#modalview-login").kendoMobileModalView("close");
+    }
+    function closeModalViewPrice() {
+        $("#modalviewPriceFilter").kendoMobileModalView("close");
+        app.navigate("#home");
+    }
+    function closeModalViewCat() {
+        $("#modalviewCatFilter").kendoMobileModalView("close");
+        app.navigate("#home");
+    }
+    
+ 
+</script>
+            
+            
+<style>
+    .km-root .left-btn
+    {
+        position: absolute;
+        z-index: 9999;
+        top: 7em;
+        left: -1em;
+        padding-right: 0;
+        padding-left: 0;
+        width: 5em;
+        line-height: 4em;
+        border-radius: 10em;
+        -webkit-border-radius: 10em;
+        border: 1px solid rgba(255,255,255,.8);
+        background: rgba(0,0,0,.8);
+        color: #fff;
+        box-shadow: 0 0 .5em #000;
+        -webkit-box-shadow: 0 0 .6em #222;
+    }
+
+    .mobileExample .km-wp-light .km-button.left-btn
+    {
+        background: rgba(0,0,0,.8);
+        text-align: center;
+    }
+
+    .km-root .left-btn .km-icon.km-notext
+    {
+        display: block;
+        margin: 1em auto;
+    }
+
+    .km-ios #left-drawer .km-content, .km-ios7 #left-drawer .km-content, .km-android #left-drawer .km-content, .km-blackberry #left-drawer .km-content,
+    .km-ios #left-drawer .km-list > li, .km-ios7 #left-drawer .km-list > li, .km-android #left-drawer .km-list > li, .km-blackberry #left-drawer .km-list > li,
+    .km-ios #left-drawer .km-listview-link > .km-icon, .km-ios7 #left-drawer .km-listview-link > .km-icon, .km-android #left-drawer .km-listview-link > .km-icon, .km-blackberry #left-drawer .km-listview-link > .km-icon,
+    .km-ios #left-drawer .km-list li > .km-icon, .km-ios7 #left-drawer .km-list li > .km-icon, .km-android #left-drawer .km-list li > .km-icon, .km-blackberry #left-drawer .km-list li > .km-icon,
+    #right-drawer .km-content
+    {
+        background-color: #4e4e4e;
+        color: #fff;
+    }
+
+    .km-ios #left-drawer .km-group-title,
+    .km-ios7 #left-drawer .km-group-title,
+    .km-blackberry #left-drawer .km-group-title
+    {
+        background-color: #6e6e6e;
+        color: #fff;
+    }
+
+    #left-drawer .km-navbar, #right-drawer .km-navbar,
+    .km-tablet .km-ios #left-drawer .km-view-title,
+    .km-tablet .km-ios #right-drawer .km-view-title,
+    .km-ios7 #left-drawer .km-view-title,
+    .km-ios7 #right-drawer .km-view-title,
+    .km-tablet .km-ios7 #left-drawer .km-view-title,
+    .km-tablet .km-ios7 #right-drawer .km-view-title
+    {
+	background-color: #2e2e2e;
+        color: #fff;
+        text-shadow: 0 -1px rgba(0,0,0,.5);
+    }
+
+    .km-drawer-button:before, .km-drawer-button:after { content: "\E077"; }
+    .km-contacts:before, .km-contacts:after { content: "\E0E4"; }
+    .km-camera:before, .km-camera:after { content: "\E0D0"; }
+    .km-printer:before, .km-printer:after { content: "\E07E"; }
+    .km-comments:before, .km-comments:after { content: "\E093"; }
+    .km-graph:before, .km-graph:after { content: "\E04B"; }
+
+
+    #two-drawer-home h2
+    {
+        display: inline-block;
+        font-size: 1em;
+        line-height: 3em;
+        margin: 0 0 0 1em;
+    }
+
+    #two-drawer-home img
+    {
+        float: left;
+        width: 3em;
+        height: 3em;
+        margin: 0;
+        border: 1px solid rgba(0,0,0,.2);
+        -webkit-border-radius: 4em;
+        border-radius: 4em;
+    }
+
+    .km-ios #two-drawer-home .km-listview
+    {
+        background-color: #eaf1f5;
+    }
+</style>            

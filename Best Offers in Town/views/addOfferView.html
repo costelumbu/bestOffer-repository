@@ -1,0 +1,39 @@
+<div data-role="view" id="signup" data-model="AddOffer"  data-show="AddOffer.show" >
+    <div data-role="header">
+        <div data-role="navbar">
+            Add offer
+            <a  data-align="left" data-role="backbutton" href="#home">Back</a>
+        </div>
+    </div>
+    
+        <ul data-role="listview" data-style="inset" data-type="group" ><li>Fill in the form
+       
+            <form id="AddOfferForm">
+                <ul id="signup-formBus" data-role="listview" data-style="inset" >
+                    <li ><input type="text" id="signupName" data-bind="value: Title"required/> Title </li>
+                    <li><input type="number" id="signupEmail" data-bind="value: Price" required />Price(after discount)</li>
+                    <li><input type="number" id="signupUsername" data-bind="value: Discount"  required/>Discount(%)</li>
+                    <li> Category
+                        <select id="signupGenderPicker" data-bind="value: Category" onchange="AddOffer.onSelectChange(this)">
+                            
+                            <option value="Food">Food</option>
+                            <option value="Aparrel">Aparrel</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Accesories">Accesories</option>
+                        </select>
+                    </li>
+                    <li >Description
+                        <textarea id="signupInfo" data-bind="value: Description" ></textarea>
+                    </li>
+                    
+                </ul>
+            </form>
+           <ul id="imagesList"></ul>
+            <li id="addPictureView"><a  data-role="button" data-click="AddOffer.addImage"><img src="styles/images/cameraMin.png" alt="styles/images/cameraMin.png"> attach Picture</a> </li> 
+            <div id="signupBtnWrp" >
+                <a  data-role="button" data-bind="click: insertOffer">Add Offer</a>
+             </div>
+        </ul>
+    
+</div>
+          

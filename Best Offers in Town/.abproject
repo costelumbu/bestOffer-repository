@@ -5,12 +5,12 @@
   "AppIdentifier": "com.telerik.BestOffersinTown",
   "DisplayName": "Best Offers in Town",
   "Author": "",
-  "Description": "",
+  "Description": "Best Offers in Town",
   "BundleVersion": "1.0",
   "AndroidVersionCode": "1",
   "iOSDeviceFamily": [
     "1",
-	"2"
+    "2"
   ],
   "iOSBackgroundMode": [],
   "WP8TileTitle": "",

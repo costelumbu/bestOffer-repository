@@ -1,0 +1,61 @@
+
+<div data-role="view"  data-layout="default"  data-init="Offer.init" data-show="Offer.show" >
+    <div data-role="header">
+        <div data-role="navbar">
+            Offer
+            <a  data-align="left" data-role="backbutton">Back</a>
+
+        </div>
+    </div>
+
+    <div >
+        <div class="user-logo">
+            <img data-bind="attr:{src: User().PictureUrl}" alt="styles/images/appbuilder.png" />
+        </div>
+        offer by: <span class="title" data-bind="text: User().DisplayName" class="user-share-txt"></span><br>
+
+        <div id="scrollview"></div>
+        <div class="insideTitle">
+            <h2 id="personName" class="person-name" data-bind='text: Title'></h2>
+             <span id="activityDate" class="time-span" data-bind="text: CreatedAtFormatted"></span>
+
+            Price:<span data-bind="text:Price" ></span> Lev.<br>
+            <span data-bind="text:Discount"></span>% discount<br>
+            Description: <span data-bind="text:Description" ></span><br>
+            loc:<span data-bind="text:Location" ></span><br>
+      </div> 
+    </div>
+
+    <div data-title="Button Appearance" class="buttonAppearance">
+        <ul data-role="listview" data-type="group" data-style="inset">
+            
+            <li>
+                <ul>
+                    <li>
+                        <i></i> <a data-role="button" data-icon="globe" >View on Map</a>
+                    </li>
+                    <li>
+                        <i></i> <a data-role="button" data-icon="phone">Call the Store</a>
+                    </li>
+                    <li>
+                        <i></i> <a data-role="button" data-icon="details" data-click="Offer.MoreFromShop">More offers from this shop</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <style>
+            .buttonAppearance .km-button:not(.km-back)
+            {
+                width: 90%;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+        </style>
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+  
+  </div> 
