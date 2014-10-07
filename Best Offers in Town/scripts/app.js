@@ -29,7 +29,6 @@ function LogIn(){
             .then(function () {
                 Offers.userViewModel.set("isLogged",true);
                 Offers.userViewModel.set("isNotLogged",false);
-                console.log(Offers.userViewModel.get("isNotLogged"))
                 app.navigate('views/home.html');
                 $("#modalview-login").kendoMobileModalView("close");
             })
