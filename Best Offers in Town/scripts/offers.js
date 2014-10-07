@@ -180,11 +180,11 @@ var Offers = (function () {
                  ]},
             
                 ]);
-                //   console.log(userViewModel.get("PriceSort"));
-               // Offers.offers.sort({ field: "Price", dir: userViewModel.get("PriceSort") });   
+                   console.log(userViewModel.get("PriceSort"));
+                  Offers.offers.sort({ field: "Price", dir: userViewModel.get("PriceSort") });   
                    $("#modalviewPriceFilter").kendoMobileModalView("close");
                     $("#modalviewCatFilter").kendoMobileModalView("close");
-            
+                 $("#homeTitle").text("Filtered Offers");
                  app.navigate("#home");
         };
        var removeFilterPrice = function(){
@@ -192,6 +192,7 @@ var Offers = (function () {
                    userViewModel.set("PriceMin",0);
                     userViewModel.set("PriceMax",500); 
                     applyFilter();
+                   
 
                    } ; 
          var removeFilterCat = function(){
@@ -207,11 +208,14 @@ var Offers = (function () {
                     userViewModel.set("PriceMax",500); 
                     userViewModel.set("catFilter","");
                    Offers.offers.filter([]);
+                $("#homeTitle").text("Best Offers");
                    } ; 
         var backFromMore = function(){
             console.log("back");
             removeAllFilters();
              Offers.userViewModel.set("moreOffers",false);
+             $("#homeTitle").text("Best Offers");
+            app.navigate("#home")
             
         }
          var MyOffers = function(){
@@ -219,7 +223,8 @@ var Offers = (function () {
                          console.log(thisUserId)
             Offers.offers.filter({ field: "UserId", operator:"eq", value:thisUserId }); 
             Offers.userViewModel.set("moreOffers",true);
-            console.log( Offers.userViewModel.get("moreOffers"))
+            console.log( Offers.userViewModel.get("moreOffers"));
+            $("#homeTitle").text("My Offers");
             app.navigate("#home");
             
         };

@@ -1,7 +1,7 @@
 <div data-role="view" id="home" data-layout="layout"  data-model="Offers" data-init="Offers.init" >
     <div data-role="header" >
         <div data-role="navbar"   >
-            Best Offers
+            <span id="homeTitle" > Best Offers </span>
             <a data-bind="invisible:userViewModel.moreOffers" data-role="button" data-rel="drawer" href="#left-drawer" data-icon="more" data-align="left" data-click="setMenu"></a>
             <a data-bind="visible:userViewModel.moreOffers, click: backFromMore" data-role="button"  data-icon="back" data-align="left">Back</a>
              <a data-role="button" data-rel="drawer" href="#right-drawer" data-icon="action" data-align="right" ></a>
