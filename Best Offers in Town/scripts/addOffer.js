@@ -63,6 +63,7 @@ AddOffer = (function () {
                     Title: '',
                     UserId:'',
                     Category:'',
+                   ExpiresAt:null,
     
                     PictureUrl: function () {
         

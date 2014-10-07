@@ -40,11 +40,16 @@ var Offers = (function () {
                     field: 'userID',
                     defaultValue: null
                 },
+                ExpiresAt: {
+                    field: "ExpiresAt",
+                    defaultValue: null,
+                },
 
             },
-
+            FormatDate: function() {
+                return AppHelper.formatDate(this.get("ExpiresAt"));
+            },
             PictureUrl: function () {
-
                 return AppHelper.resolvePictureUrl(this.get('Image'));
             },
             User: function () {
