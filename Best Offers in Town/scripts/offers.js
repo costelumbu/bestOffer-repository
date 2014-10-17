@@ -2,79 +2,93 @@
 var Offers = (function () {
     'use strict'
     var offersModel = (function () {
-
         var offerModel = {
 
-            id: 'Id',
+             Id: 'Id',
             fields: {
-                Category:{
-                    field: 'category',
+                Title:{
+                    field: 'Title',
                     defaultValue:''
                 },
                 Description: {
-                    field: 'description',
+                    field: 'Description',
                     defaultValue: ''
+                },
+                InitialPrice: {
+                    field: 'InitialPrice',
+                    defaultValue: null
+                },
+                FinalPrice: {
+                    field: 'FinalPrice',
+                    defaultValue: null
                 },
                 Discount: {
-                    field: 'discount',
-                    defaultValue: ''
-                },
-                Image: {
-                    field: 'Image',
+                    field: 'Discount',
                     defaultValue: null
                 },
-                Images: {
-                    field: 'Images',
+                ExpirationDate: {
+                    field: 'ExpirationDate'
+                },
+                FeaturedPicture: {
+                    field: 'FeaturedPicture'
+                },
+                Pictures: {
+                    field: 'Pictures'
+                },
+                NumberClicks: {
+                    field: 'NumberClicks',
                     defaultValue: null
                 },
-                Location: {
-                    field: 'location'
+                NumberPlannedRoutes: {
+                    field: "NumberPlannedRoutes",
+                    defaultValue: null,
                 },
-                Price: {
-                    field: 'price'
+                 NumberWishlistAdds: {
+                    field: "NumberWishlistAdds",
+                    defaultValue: null,
                 },
-                Title: {
-                    field: 'title'
+                 StoreIdRow: {
+                    field: "StoreIdRow",
+                    defaultValue: null,
                 },
-                UserId: {
-                    field: 'userID',
-                    defaultValue: null
+                StoreID: {
+                    field: "StoreID",
+                    defaultValue: null,
                 },
 
             },
-
+            calculateDiscount: function(){
+                var calcDisc= 100-(this.FinalPrice*100/this.InitialPrice);
+                calcDisc=kendo.parseInt(calcDisc);
+                this.Discount=calcDisc;
+                return calcDisc
+            },
+            
+              ExpFormatDate: function() {
+                return AppHelper.formatDate(this.get("ExpirationDate"));
+            },
             PictureUrl: function () {
-
-                return AppHelper.resolvePictureUrl(this.get('Image'));
+                return AppHelper.resolvePictureUrl(this.get('FeaturedPicture'));
             },
-            User: function () {
+           
+            Store: function(){
+                var storeName=[{}];
+                var id=this.get('StoreID');
+                StoresDataSource.fetch(function() {
+                    for (var i=0; i<id.length; i++){
+                        var dataItem = StoresDataSource.get(id[i]);
+                        storeName.push(dataItem.Name);
+                    }
+                   
+                });
+                storeName.shift();
+               return storeName
 
-                var userId = this.get('UserId');
-                //console.log(userId);
-                var user = $.grep(usersData, function (e) {
-                    return e.Id === userId;
-                })[0];
-                //console.log(usersData);
-
-                return user ? {
-                    DisplayName: user.DisplayName,
-                    PictureUrl: AppHelper.resolveProfilePictureUrl(user.Picture)
-                } : {
-                    DisplayName: 'Anonymous',
-                    PictureUrl: AppHelper.resolveProfilePictureUrl()
-                };
             },
-             
-            /*
-            isVisible: function () {
-                var currentUserId = app.Users.currentUser.data.Id;
-                var userId = this.get('UserId');
-
-                return currentUserId === userId;
-            }*/
         };
         
-          
+        
+  
         var offersDataSource = new kendo.data.DataSource({
             type: 'everlive',
             schema: {
@@ -82,7 +96,7 @@ var Offers = (function () {
             },
             transport: {
                 // Required by Backend Services
-                typeName: 'offers2'
+                typeName: 'Offers'
             },
             change: function (e) {
 
@@ -98,10 +112,49 @@ var Offers = (function () {
                 field: 'CreatedAt',
                 dir: 'desc'
             }
-        }); //console.dir(activitiesDataSource);
+        }); 
+    var StoresDataSource = new kendo.data.DataSource({
+            type: 'everlive',
+            schema: {
+                model: {
+                     Id: 'Id',
+                    fields: {
+                        Name:{
+                            field: 'Name',
+                            defaultValue:''
+                        },
+                        City: {
+                            field: 'City',
+                            defaultValue: ''
+                        },
+                        Street: {
+                            field: 'Street',
+                            defaultValue: null
+                        },
+                        Phone: {
+                            field: 'Phone',
+                            defaultValue: null
+                        },
+        
+                    },
+                },
+            },
+            transport: {
+                // Required by Backend Services
+                typeName: 'Stores'
+            },
+            change: function (e) {
 
+                if (e.items && e.items.length > 0) {
+                    $('#no-activities-span').hide();
+                } else {
+                    $('#no-activities-span').show();
+                }
+            },
+        }); 
         return {
-            offers: offersDataSource
+            offers: offersDataSource,
+            stores: StoresDataSource,
         };  
     }());
     // Activities view model
@@ -180,11 +233,11 @@ var Offers = (function () {
                  ]},
             
                 ]);
-                //   console.log(userViewModel.get("PriceSort"));
-               // Offers.offers.sort({ field: "Price", dir: userViewModel.get("PriceSort") });   
+                   console.log(userViewModel.get("PriceSort"));
+                  Offers.offers.sort({ field: "Price", dir: userViewModel.get("PriceSort") });   
                    $("#modalviewPriceFilter").kendoMobileModalView("close");
                     $("#modalviewCatFilter").kendoMobileModalView("close");
-            
+                 $("#homeTitle").text("Filtered Offers");
                  app.navigate("#home");
         };
        var removeFilterPrice = function(){
@@ -192,6 +245,7 @@ var Offers = (function () {
                    userViewModel.set("PriceMin",0);
                     userViewModel.set("PriceMax",500); 
                     applyFilter();
+                   
 
                    } ; 
          var removeFilterCat = function(){
@@ -207,11 +261,14 @@ var Offers = (function () {
                     userViewModel.set("PriceMax",500); 
                     userViewModel.set("catFilter","");
                    Offers.offers.filter([]);
+                $("#homeTitle").text("Best Offers");
                    } ; 
         var backFromMore = function(){
             console.log("back");
             removeAllFilters();
              Offers.userViewModel.set("moreOffers",false);
+             $("#homeTitle").text("Best Offers");
+            app.navigate("#home")
             
         }
          var MyOffers = function(){
@@ -219,13 +276,15 @@ var Offers = (function () {
                          console.log(thisUserId)
             Offers.offers.filter({ field: "UserId", operator:"eq", value:thisUserId }); 
             Offers.userViewModel.set("moreOffers",true);
-            console.log( Offers.userViewModel.get("moreOffers"))
+            console.log( Offers.userViewModel.get("moreOffers"));
+            $("#homeTitle").text("My Offers");
             app.navigate("#home");
             
         };
 
         return {
             offers: offersModel.offers,
+            stores: offersModel.stores,
             activitySelected: activitySelected,
             logout: logout,
             userViewModel:userViewModel,

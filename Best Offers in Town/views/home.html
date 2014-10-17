@@ -1,7 +1,7 @@
 <div data-role="view" id="home" data-layout="layout"  data-model="Offers" data-init="Offers.init" >
     <div data-role="header" >
         <div data-role="navbar"   >
-            Best Offers
+            <span id="homeTitle" > Best Offers </span>
             <a data-bind="invisible:userViewModel.moreOffers" data-role="button" data-rel="drawer" href="#left-drawer" data-icon="more" data-align="left" data-click="setMenu"></a>
             <a data-bind="visible:userViewModel.moreOffers, click: backFromMore" data-role="button"  data-icon="back" data-align="left">Back</a>
              <a data-role="button" data-rel="drawer" href="#right-drawer" data-icon="action" data-align="right" ></a>
@@ -11,27 +11,10 @@
     </div>
           <!--  <a  data-align="right" data-role="button" data-bind="click:search" >test</a>!-->
         <ul  data-role="listview"><li data-align="right" data-icon="search"> <input type="text" id="search" placeholder="search" data-bind="events: { change: search}, value: userViewModel.ProdFilter"/></li> </ul>  
-    <ul id="OffersListview" data-style="inset" data-role="listview" data-template="activityTemplate"data-bind="source: offers">
-
-    </ul>
+    <ul id="OffersListview" data-style="inset" data-role="listview" data-template="activityTemplate" data-bind="source: offers"></ul>
     
 </div>
-<!-----modal view Log in!-->
-<div data-role="modalview" id="modalview-login" style="width: 90%;">
-    <div data-role="header">
-        <div data-role="navbar">
-            <span>Login</span>
-            <a data-click="closeModalViewLogin" data-role="button" data-align="right">Cancel</a>
-        </div>
-    </div>
 
-    <ul data-role="listview" data-style="inset">
-        <li><label for="username">Username: <input type="text" id="LogInUsername" value="metro"/></label></li>
-        <li><label for="password">Password: <input type="password" id="LogInPassword" value="metro"/></label></li>
-    </ul>
-    <a  id="modalview-login-button" type="button" data-role="button" data-click="LogIn">Login</a>
-    <a id="modalview-reg-button" type="button" data-role="button" href="views/RegisterView.html">Register</a>
-</div>
 <!-- drawer right-->
 <div data-role="drawer" id="right-drawer" style="width: 120px" data-title="Filter by" data-position="right" data-model="Offers" >
     <header data-role="header">
@@ -46,7 +29,7 @@
           <li data-icon="delete" ><a href="#home" data-transition="none" data-bind="click:removeAllFilters">Remove All Filters</a></li>
         </ul>
 </div>
-<!-- drawer -->
+<!-- drawer Left-->
 <div data-role="drawer" id="left-drawer" style="width: 130px" data-title="Menu" data-model="Offers">
     <header data-role="header">
         <div data-role="navbar">
@@ -71,13 +54,28 @@
 
     </ul>
 </div>
+<!-----modal view Log in!-->
+<div data-role="modalview" id="modalview-login" style="width: 90%;">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>Login</span>
+            <a data-click="onCloseModalClick" data-role="button" data-align="right">Cancel</a>
+        </div>
+    </div>
 
+    <ul data-role="listview" data-style="inset">
+        <li><label for="username">Username: <input type="text" id="LogInUsername" value="metro"/></label></li>
+        <li><label for="password">Password: <input type="password" id="LogInPassword" value="metro"/></label></li>
+    </ul>
+    <a  id="modalview-login-button" type="button" data-role="button" data-click="LogIn">Login</a>
+    <a id="modalview-reg-button" type="button" data-role="button" href="views/RegisterView.html">Register</a>
+</div>
 <!-----modal view PriceFilter-->
 <div data-role="modalview" id="modalviewPriceFilter" style="width: 90%;" data-model="Offers">
     <div data-role="header">
         <div data-role="navbar">
             <span>Filter by Price</span>
-            <a data-click="closeModalViewPrice" data-role="button" data-align="right">Cancel</a>
+            <a data-click="onCloseModalClick" data-role="button" data-align="right">Cancel</a>
         </div>
     </div>
     <ul data-role="listview" data-style="inset" data-type="group">
@@ -105,7 +103,7 @@
     <div data-role="header">
         <div data-role="navbar">
             <span>Filter by Category</span>
-            <a data-click="closeModalViewCat" data-role="button" data-align="right">Cancel</a>
+            <a data-click="onCloseModalClick" data-role="button" data-align="right">Cancel</a>
         </div>
     </div>
     <ul data-role="listview" data-style="inset" data-type="group">
@@ -132,21 +130,33 @@
         <div >
      <img class="homeLine" data-bind="attr:{src: PictureUrl}" alt="styles/images/avatar.png" width="40%" />
              <span class="title">${Title}</span><br>
-             <span class="price">${Price}  </span> <span class="discount">Lev.</span><br>
-             <span class="discount">${Discount}% discount</span><br>
-              <span class="store">${User().DisplayName}</span> 
-       
+             <span class="price">${FinalPrice}  </span> <span class="discount">Lev.</span><br>
+             <span class="discount">${calculateDiscount()}% discount</span><br>
+              <span class="store"> ${Store()}</span> <br>
+              <span class="discount">Expires at: ${ExpFormatDate()}</span>
+    
         </div>
     </div>  
     
-     
-    
-    
 </script>
 
+
 <script>
+   function onCloseModalClick (e) {
+    //GET MODAL
+    var modal = e.target
+    .closest('.km-modalview')
+    .getKendoMobileModalView();
+
+    //CLOSE MODAL
+    modal.close();
+    app.navigate("#home");
+  };
+    /*
     function closeModalViewLogin() {
         $("#modalview-login").kendoMobileModalView("close");
+        app.navigate("#home");
+
     }
     function closeModalViewPrice() {
         $("#modalviewPriceFilter").kendoMobileModalView("close");
@@ -156,7 +166,7 @@
         $("#modalviewCatFilter").kendoMobileModalView("close");
         app.navigate("#home");
     }
-    
+  */  
  
 </script>
             

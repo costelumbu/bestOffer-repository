@@ -52,7 +52,8 @@ Offer = (function () {
             var thisUserId=activity.UserId;
             Offers.offers.filter({ field: "UserId", operator:"eq", value:thisUserId }); 
             Offers.userViewModel.set("moreOffers",true);
-            console.log( Offers.userViewModel.get("moreOffers"))
+            console.log( Offers.userViewModel.get("moreOffers"));
+            $("#homeTitle").text("More from shop");
             app.navigate("#home");
             
         };
