@@ -7,6 +7,8 @@ var Map = (function () {
         var initMap = function () {
             var element = document.getElementById('map_canvas');
             var currentLocation = getGeoLocation();
+            console.log(currentLocation.lat());
+            console.log(currentLocation.lng());
             var options = {
               center: new google.maps.LatLng(currentLocation.lat(), currentLocation.lng()),
               mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -31,6 +33,9 @@ var Map = (function () {
                     initialLocation = new google.maps.LatLng(42.6975100, 23.3241500);
                 });
             }
+                else {
+                    initialLocation = new google.maps.LatLng(42.6975100, 23.3241500);
+                }
             return initialLocation;
         }
         
