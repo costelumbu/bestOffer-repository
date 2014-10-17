@@ -6,7 +6,7 @@ var Map = (function () {
 
         var initMap = function () {
             var element = document.getElementById('map_canvas');
-            var currentLocation = getGeoLocation();
+            var currentLocation = new google.maps.LatLng(42.6975100, 23.3241500);
             var options = {
               center: currentLocation,
               mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -14,12 +14,12 @@ var Map = (function () {
             };
         
             this.map = new google.maps.Map(element, options);
-            Offers.stores.fetch(function() {
+            /*Offers.stores.fetch(function() {
                 var data = this.data();
                 for (var i = 0; i < data.length; i++) {
                     console.log(data[i].Street);
                 }              
-            });
+            });*/
         }
         
         var getGeoLocation = function () {
@@ -30,8 +30,7 @@ var Map = (function () {
                 }, function () {
                     initialLocation = new google.maps.LatLng(42.6975100, 23.3241500);
                 });
-            }
-                else {
+            } else {
                     initialLocation = new google.maps.LatLng(42.6975100, 23.3241500);
                 }
             return initialLocation;
