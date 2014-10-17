@@ -83,8 +83,25 @@ var Offers = (function () {
                 });
                 storeName.shift();
                return storeName
-
             },
+            User: function () {
+
+                var userId = this.get('userID');
+                
+
+                var user = $.grep(app.Users.users(), function (e) {
+                    return e.Id === userId;
+                })[0];
+
+                return user ? {
+                    DisplayName: user.DisplayName,
+                    PictureUrl: app.helper.resolveProfilePictureUrl(user.Image)
+                } : {
+                    DisplayName: 'Anonymous',
+                    PictureUrl: app.helper.resolveProfilePictureUrl()
+                };
+            }
+
         };
         
         
