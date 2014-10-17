@@ -1,3 +1,12 @@
+.stretchBtb{
+    width: 37%;
+}
+.stretchBtbFull{
+    width: 99%;
+}
+.allignCenter{
+    text-align: center;
+}
 .homeLine {
     
   float:left;

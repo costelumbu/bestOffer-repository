@@ -1,22 +1,12 @@
 
 Offer = (function () {
     'use strict'
-        
-    var $commentsContainer,
-        listScroller;
-    
     var activityViewModel = (function () {
-            var activityUid,
-            activity,
-            $activityPicture;
+            var offerUid,
+            activity
         var files= new kendo.data.ObservableArray([]);
         var init = function () {
           
-           // $commentsContainer = $('#comments-listview');
-           // $activityPicture = $('#picture');
-             
-                       
-           
              $("#scrollview").kendoMobileScrollView({
                    dataSource: files,
                    template: "<img src='#: data #'width=99%>",
@@ -28,16 +18,11 @@ Offer = (function () {
         
         var show = function (e) {
             files.splice(0, files.length)
-             $commentsContainer = $('#comments-listview');
-            $activityPicture = $('#picture');
-            activityUid = e.view.params.uid;
+            offerUid = e.view.params.uid;
             // Get current activity (based on item uid) from Activities model
-            activity = Offers.offers.getByUid(activityUid);
+            activity = Offers.offers.getByUid(offerUid);
             console.dir(activity);
             kendo.bind(e.view.element, activity, kendo.mobile.ui);
-            
-
-
              function logArrayElements(element, index, array) {
               console.log('a[' + index + '] = ' + element);
                 files.push(AppHelper.resolvePictureUrl(element));
@@ -61,7 +46,7 @@ Offer = (function () {
         var removeActivity = function () {
             
             var activities = Offers.offers;
-            var activity = activities.getByUid(activityUid);
+            var activity = activities.getByUid(offerUid);
             
             app.showConfirm(
                 appSettings.messages.removeActivityConfirm,
@@ -83,7 +68,6 @@ Offer = (function () {
             init: init,
             show: show,
             MoreFromShop:MoreFromShop,
-           // remove: removeActivity,
             activity: function () {
                 return activity;
             },
