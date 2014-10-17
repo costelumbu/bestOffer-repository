@@ -7,6 +7,7 @@ var Map = (function () {
         var initMap = function () {
             var element = document.getElementById('map_canvas');
             var currentLocation = new google.maps.LatLng(42.6975100, 23.3241500);
+            console.log(userViewModel.get('CurrentGeo'));
             console.log(currentLocation);
             var options = {
               center: currentLocation,
