@@ -6,7 +6,7 @@ var Map = (function () {
 
         var initMap = function () {
             var element = document.getElementById('map_canvas');
-            var currentLocation = mapObject.getGeoLocation();
+            var currentLocation = new google.maps.LatLng(42.6975100, 23.3241500);
             console.log(currentLocation);
             var options = {
               center: currentLocation,
@@ -35,7 +35,6 @@ var Map = (function () {
             } else {
                     initialLocation = new google.maps.LatLng(42.6975100, 23.3241500);
                 }
-            return initialLocation;
         }
         
         
