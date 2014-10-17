@@ -24,8 +24,8 @@
     </header>
     <ul data-role="listview" data-style="inset" >
         <li ><a data-rel="modalview" href="#modalviewPriceFilter" data-transition="none">Price</a></li>
-        <li><a  data-rel="modalview"href="#modalviewCatFilter" data-transition="none">Category</a></li>
-         <li ><a href="#drawer-drafts" data-transition="none">Location</a></li>
+        <li><a  data-rel="modalview" href="#modalviewCatFilter" data-transition="none">Category</a></li>
+         <li ><a data-rel="modalview" href="#modalviewLocFilter" data-transition="none">Location</a></li>
           <li data-icon="delete" ><a href="#home" data-transition="none" data-bind="click:removeAllFilters">Remove All Filters</a></li>
         </ul>
 </div>
@@ -67,8 +67,10 @@
         <li><label for="username">Username: <input type="text" id="LogInUsername" value="metro"/></label></li>
         <li><label for="password">Password: <input type="password" id="LogInPassword" value="metro"/></label></li>
     </ul>
-    <a  id="modalview-login-button" type="button" data-role="button" data-click="LogIn">Login</a>
-    <a id="modalview-reg-button" type="button" data-role="button" href="views/RegisterView.html">Register</a>
+    <div class="allignCenter">
+        <a class="stretchBtb" id="modalview-login-button" type="button" data-role="button" data-click="LogIn">Login</a>
+        <a class="stretchBtb" id="modalview-reg-button" type="button" data-role="button" href="views/RegisterView.html">Register</a>
+     </div>
 </div>
 <!-----modal view PriceFilter-->
 <div data-role="modalview" id="modalviewPriceFilter" style="width: 90%;" data-model="Offers">
@@ -109,10 +111,35 @@
     <ul data-role="listview" data-style="inset" data-type="group">
         <li>
            <ul>
-               <li><label><input name="radio" type="radio" checked="checked" value="Food" data-bind="checked:userViewModel.catFilter" />Food</label></li>
-                <li><label><input name="radio"  type="radio" value="Aparrel" data-bind="checked:userViewModel.catFilter" />Aparrel</label></li>
+               <li><label><input name="radio" type="radio" checked="checked" value="Aparrel" data-bind="checked:userViewModel.catFilter" />Aparrel</label></li>
+                <li><label><input name="radio"  type="radio" value="Accessories" data-bind="checked:userViewModel.catFilter" />Accessories</label></li>
                 <li><label><input name="radio"  type="radio" value="Electronics" data-bind="checked:userViewModel.catFilter" />Electronics</label></li>
-                <li><label><input name="radio"  type="radio" value="Accesories" data-bind="checked:userViewModel.catFilter" />Accesories</label></li>
+            </ul>
+       </li>
+        
+     </ul>
+    
+    <a type="button" data-role="button" data-bind="click: applyFilter" >Apply Filter</a>
+    <a type="button" data-role="button" data-bind="click: removeFilterCat" >Remove Category Filter</a>
+
+</div>
+<!-----modal view Category Filter-->
+<div data-role="modalview" id="modalviewLocFilter" style="width: 90%;" data-model="Offers">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>Filter by Location</span>
+            <a data-click="onCloseModalClick" data-role="button" data-align="right">Cancel</a>
+        </div>
+    </div>
+    <ul data-role="listview" data-style="inset" data-type="group">
+        <li>
+           <ul>
+                 <li><label><input name="radio" type="radio" value="Sofia" data-bind="checked:userViewModel.locFilter" />Sofia</label></li>
+                <li><label><input name="radio"  type="radio" value="Varna" data-bind="checked:userViewModel.locFilter" />Varna</label></li>
+                <li><label><input name="radio"  type="radio" value="Burgas" data-bind="checked:userViewModel.locFilter" />Burgas</label></li>
+                <li><label><input name="radio"  type="radio" value="Plovdid" data-bind="checked:userViewModel.locFilter" />Plovdid</label></li>
+                <li><label><input name="radio"  type="radio" value="Ruse" data-bind="checked:userViewModel.locFilter" />Ruse</label></li>
+                <li><label><input name="radio"  type="radio" value="Targovishte" data-bind="checked:userViewModel.locFilter" />Targovishte</label></li>
             </ul>
        </li>
         

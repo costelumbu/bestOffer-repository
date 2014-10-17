@@ -23,9 +23,6 @@ Offer = (function () {
             activity = Offers.offers.getByUid(offerUid);
             console.dir(activity);
             kendo.bind(e.view.element, activity, kendo.mobile.ui);
-            
-
-
              function logArrayElements(element, index, array) {
               console.log('a[' + index + '] = ' + element);
                 files.push(AppHelper.resolvePictureUrl(element));

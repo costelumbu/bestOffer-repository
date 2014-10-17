@@ -10,6 +10,11 @@ var Offers = (function () {
                     field: 'Title',
                     defaultValue:''
                 },
+                Category: {
+                    field: 'Category',
+                    defaultValue: ''
+                },
+                
                 Description: {
                     field: 'Description',
                     defaultValue: ''
@@ -196,6 +201,9 @@ var Offers = (function () {
             PriceSort:'asc',
             catFilter:'',
             
+            CurrentGeo:'',
+            CurrentCity:'',
+            
             moreOffers:false,
             
         });
@@ -237,11 +245,11 @@ var Offers = (function () {
                 {"logic":"and",
                  "filters":[
                      {
-                        "field":"Price",
+                        "field":"FinalPrice",
                         "operator":"gte",
                         "value":parseInt(userViewModel.get("PriceMin"))},
                      {
-                         "field":"Price",
+                         "field":"FinalPrice",
                           "operator":"lte",
                           "value":parseInt(userViewModel.get("PriceMax"))},
                      {
@@ -252,7 +260,7 @@ var Offers = (function () {
             
                 ]);
                    console.log(userViewModel.get("PriceSort"));
-                  Offers.offers.sort({ field: "Price", dir: userViewModel.get("PriceSort") });   
+                  Offers.offers.sort({ field: "FinalPrice", dir: userViewModel.get("PriceSort") });   
                    $("#modalviewPriceFilter").kendoMobileModalView("close");
                     $("#modalviewCatFilter").kendoMobileModalView("close");
                  $("#homeTitle").text("Filtered Offers");
