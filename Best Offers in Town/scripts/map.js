@@ -7,8 +7,8 @@ var Map = (function () {
         var initMap = function () {
             var element = document.getElementById('map_canvas');
             var currentLocation = getGeoLocation();
-            console.log(currentLocation.lat());
-            console.log(currentLocation.lng());
+           // console.log(currentLocation.lat());
+           // console.log(currentLocation.lng());
             var options = {
               center: new google.maps.LatLng(currentLocation.lat(), currentLocation.lng()),
               mapTypeId: google.maps.MapTypeId.ROADMAP,

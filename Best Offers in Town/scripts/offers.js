@@ -181,7 +181,7 @@ var Offers = (function () {
             stores: StoresDataSource,
         };  
     }());
-    // Activities view model
+    // Offers view model
     var offersViewModel = (function () {
         
         var userViewModel = kendo.observable({ 
@@ -217,12 +217,6 @@ var Offers = (function () {
         var activitySelected = function (e) {
 
             app.navigate('views/insideOffer.html?uid=' + e.data.uid);
-        };
-
-        // Navigate to app home
-        var navigateHome = function () {
-
-            app.navigate('#home');
         };
 
         // Logout user
