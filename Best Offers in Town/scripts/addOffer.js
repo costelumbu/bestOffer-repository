@@ -16,9 +16,7 @@ AddOffer = (function () {
         var validator;
         var PictureUrl;
         
-       
-        // Register user after required fields (username and password) are validated in Backend Services
-       
+              
          var insertOffer = function () {
 
             offerModel.set("Images",imageArray) 

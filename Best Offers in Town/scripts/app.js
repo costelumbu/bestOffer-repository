@@ -1,5 +1,5 @@
   var app;
-var usersData;
+var StoresData;
 
 (function () {
     document.addEventListener('deviceready', function () {
@@ -14,7 +14,7 @@ var usersData;
 }());
 var emptyGuid = '00000000-0000-0000-0000-000000000000';
 var el = new Everlive({
-    apiKey: 'lElkWCFTTbxo6tk6', // Put your Backend Services API key here
+    apiKey: 'hFumNF4NWU4mUzeT', // Put your Backend Services API key here
     scheme: 'http'
 });
 
@@ -107,11 +107,11 @@ function Logout() {
             AppHelper.logout()
                 .then(app.navigate('#home'))
         };        
-function AllUsers() {
-
+function AllStores() {
     el.Users.get().then(function (data) {
-        usersData = new kendo.data.ObservableArray(data.result);
+        StoresData = new kendo.data.ObservableArray(data.result);
     });
 }
-AllUsers();
-
+AllStores();
+//console.dir(activitiesDataSource);
+ 
