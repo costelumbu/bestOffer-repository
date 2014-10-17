@@ -14,6 +14,12 @@ var Map = (function () {
             };
         
             this.map = new google.maps.Map(element, options);
+            Offers.stores.fetch(function() {
+                var data = this.data();
+                for (var i = 0; i < data.length; i++) {
+                    console.log(data[i].Street);
+                }              
+            });
         }
         
         var getGeoLocation = function () {
