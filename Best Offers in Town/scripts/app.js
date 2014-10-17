@@ -1,5 +1,5 @@
   var app;
-var StoresData;
+var UsersData;
 
 (function () {
     document.addEventListener('deviceready', function () {
@@ -107,11 +107,11 @@ function Logout() {
             AppHelper.logout()
                 .then(app.navigate('#home'))
         };        
-function AllStores() {
+function AllUsers() {
     el.Users.get().then(function (data) {
-        StoresData = new kendo.data.ObservableArray(data.result);
+        UsersData = new kendo.data.ObservableArray(data.result);
     });
 }
-AllStores();
+AllUsers();
 //console.dir(activitiesDataSource);
  

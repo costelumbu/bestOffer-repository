@@ -79,26 +79,33 @@ var Offers = (function () {
                         var dataItem = StoresDataSource.get(id[i]);
                         storeName.push(dataItem.Name);
                     }
-                   
                 });
                 storeName.shift();
+                
                return storeName
             },
             User: function () {
-
-                var userId = this.get('userID');
-                
-
-                var user = $.grep(app.Users.users(), function (e) {
+                var stores=[{}];
+                var id=this.get('StoreID');
+                StoresDataSource.fetch(function() {
+                    for (var i=0; i<id.length; i++){
+                        var dataItem = StoresDataSource.get(id[i]);
+                       // console.log(dataItem);
+                        stores.push(dataItem.UserID[0]);
+                    }
+                });
+                stores.shift();
+                var userId = stores[0];
+                var user = $.grep(UsersData, function (e) {
                     return e.Id === userId;
                 })[0];
 
                 return user ? {
-                    DisplayName: user.DisplayName,
-                    PictureUrl: app.helper.resolveProfilePictureUrl(user.Image)
+                    CompanyName: user.CompanyName,
+                    PictureUrl: AppHelper.resolveProfilePictureUrl(user.Logo)
                 } : {
                     DisplayName: 'Anonymous',
-                    PictureUrl: app.helper.resolveProfilePictureUrl()
+                    PictureUrl: AppHelper.resolveProfilePictureUrl()
                 };
             }
 
