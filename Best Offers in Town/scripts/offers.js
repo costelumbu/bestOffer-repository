@@ -57,6 +57,12 @@ var Offers = (function () {
                 },
 
             },
+            calculateDiscount: function(){
+                var calcDisc= 100-(this.FinalPrice*100/this.InitialPrice);
+                calcDisc=kendo.parseInt(calcDisc);
+                this.Discount=calcDisc;
+                return calcDisc
+            },
             
               ExpFormatDate: function() {
                 return AppHelper.formatDate(this.get("ExpirationDate"));
@@ -71,7 +77,6 @@ var Offers = (function () {
                 StoresDataSource.fetch(function() {
                     for (var i=0; i<id.length; i++){
                         var dataItem = StoresDataSource.get(id[i]);
-                        console.log(dataItem.Name);
                         storeName.push(dataItem.Name);
                     }
                    

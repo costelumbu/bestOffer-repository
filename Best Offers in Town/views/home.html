@@ -131,9 +131,10 @@
      <img class="homeLine" data-bind="attr:{src: PictureUrl}" alt="styles/images/avatar.png" width="40%" />
              <span class="title">${Title}</span><br>
              <span class="price">${FinalPrice}  </span> <span class="discount">Lev.</span><br>
-             <span class="discount">${Discount}% discount</span><br>
+             <span class="discount">${calculateDiscount()}% discount</span><br>
               <span class="store"> ${Store()}</span> <br>
               <span class="discount">Expires at: ${ExpFormatDate()}</span>
+    
         </div>
     </div>  
     
