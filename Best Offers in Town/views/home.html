@@ -95,9 +95,10 @@
             </ul>
         </li>
     </ul>
-    
-    <a type="button" data-role="button" data-bind="click: applyFilter" >Apply Filter</a>
-    <a type="button" data-role="button" data-bind="click: removeFilterPrice" >Remove Price Filter</a>
+    <div class="allignCenter">
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click: applyFilter" >Apply Filter</a>
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click: removeFilterPrice" >Remove Filter</a>
+        </div>
 
 </div>
 <!-----modal view Category Filter-->
@@ -118,12 +119,12 @@
        </li>
         
      </ul>
-    
-    <a type="button" data-role="button" data-bind="click: applyFilter" >Apply Filter</a>
-    <a type="button" data-role="button" data-bind="click: removeFilterCat" >Remove Category Filter</a>
-
+    <div class="allignCenter">
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click: applyFilter" >Apply Filter</a>
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click: removeFilterCat" >Remove Filter</a>
+    </div>
 </div>
-<!-----modal view Category Filter-->
+<!-----modal view City Filter-->
 <div data-role="modalview" id="modalviewLocFilter" style="width: 90%;" data-model="Offers">
     <div data-role="header">
         <div data-role="navbar">
@@ -134,20 +135,20 @@
     <ul data-role="listview" data-style="inset" data-type="group">
         <li>
            <ul>
-                 <li><label><input name="radio" type="radio" value="Sofia" data-bind="checked:userViewModel.locFilter" />Sofia</label></li>
-                <li><label><input name="radio"  type="radio" value="Varna" data-bind="checked:userViewModel.locFilter" />Varna</label></li>
-                <li><label><input name="radio"  type="radio" value="Burgas" data-bind="checked:userViewModel.locFilter" />Burgas</label></li>
-                <li><label><input name="radio"  type="radio" value="Plovdid" data-bind="checked:userViewModel.locFilter" />Plovdid</label></li>
-                <li><label><input name="radio"  type="radio" value="Ruse" data-bind="checked:userViewModel.locFilter" />Ruse</label></li>
-                <li><label><input name="radio"  type="radio" value="Targovishte" data-bind="checked:userViewModel.locFilter" />Targovishte</label></li>
+                 <li><label><input name="radio" type="radio" value="Sofia" data-bind="checked:userViewModel.cityFilter" />Sofia</label></li>
+                <li><label><input name="radio"  type="radio" value="Varna" data-bind="checked:userViewModel.cityFilter" />Varna</label></li>
+                <li><label><input name="radio"  type="radio" value="Burgas" data-bind="checked:userViewModel.cityFilter" />Burgas</label></li>
+                <li><label><input name="radio"  type="radio" value="Plovdid" data-bind="checked:userViewModel.cityFilter" />Plovdid</label></li>
+                <li><label><input name="radio"  type="radio" value="Ruse" data-bind="checked:userViewModel.cityFilter" />Ruse</label></li>
+                <li><label><input name="radio"  type="radio" value="Targovishte" data-bind="checked:userViewModel.cityFilter" />Targovishte</label></li>
             </ul>
        </li>
         
      </ul>
-    
-    <a type="button" data-role="button" data-bind="click: applyFilter" >Apply Filter</a>
-    <a type="button" data-role="button" data-bind="click: removeFilterCat" >Remove Category Filter</a>
-
+    <div class="allignCenter">
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click: applyFilter" >Apply Filter</a>
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click: removeCityFilter" >Remove Filter</a>
+    </div>
 </div>
 
 <!-- offers ListView Template -->
@@ -161,6 +162,7 @@
              <span class="discount">${calculateDiscount()}% discount</span><br>
               <span class="store"> ${Store()}</span> <br>
               <span class="discount">Expires at: ${ExpFormatDate()}</span>
+    ${City().CityName}
         </div>
     </div>  
     

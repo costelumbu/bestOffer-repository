@@ -89,18 +89,19 @@ var Offers = (function () {
                 
                return storeName
             },
-             Store: function(){
-                var storeName=[{}];
+             City: function(){
+               var storeCity=[{}];
                 var id=this.get('StoreID');
                 StoresDataSource.fetch(function() {
                     for (var i=0; i<id.length; i++){
                         var dataItem = StoresDataSource.get(id[i]);
-                        storeName.push(dataItem.Name);
+                        storeCity.push(dataItem.City);
                     }
                 });
-                storeName.shift();
-                
-               return storeName
+                storeCity.shift();
+                //console.log(storeCity);
+               return {CityName: storeCity[0]}
+               
             },
      
             User: function () {
@@ -110,7 +111,7 @@ var Offers = (function () {
                     for (var i=0; i<id.length; i++){
                         var dataItem = StoresDataSource.get(id[i]);
                        // console.log(dataItem);
-                        stores.push(dataItem.UserID[0]);
+                        stores.push(dataItem.UserId);
                     }
                 });
                 stores.shift();
@@ -214,6 +215,7 @@ var Offers = (function () {
             PriceMax:500,
             PriceSort:'asc',
             catFilter:'',
+            cityFilter:'',
             
             CurrentGeo:'',
             CurrentCity:'',
@@ -271,9 +273,9 @@ var Offers = (function () {
                         "operator":"startswith",
                         "value":userViewModel.get("catFilter")},
                     {
-                        "field":"City",
+                        "field":"City().CityName",
                         "operator":"startswith",
-                        "value":userViewModel.get("catFilter")},
+                        "value":userViewModel.get("cityFilter")},
                  ]},
             
                 ]);
@@ -281,6 +283,7 @@ var Offers = (function () {
                   Offers.offers.sort({ field: "FinalPrice", dir: userViewModel.get("PriceSort") });   
                    $("#modalviewPriceFilter").kendoMobileModalView("close");
                     $("#modalviewCatFilter").kendoMobileModalView("close");
+                    $("#modalviewLocFilter").kendoMobileModalView("close");
                  $("#homeTitle").text("Filtered Offers");
                  app.navigate("#home");
         };
@@ -299,6 +302,11 @@ var Offers = (function () {
                     applyFilter();
 
                    } ; 
+        var removeCityFilter = function(){
+                   console.log("remove locat");
+                   userViewModel.set("cityFilter","");
+                    applyFilter();
+                   } ; 
          var removeAllFilters = function(){
                    console.log("remove all");
                   userViewModel.set("PriceMin",0);
@@ -307,6 +315,7 @@ var Offers = (function () {
                    Offers.offers.filter([]);
                 $("#homeTitle").text("Best Offers");
                    } ; 
+       
         var backFromMore = function(){
             console.log("back");
             removeAllFilters();
@@ -338,6 +347,7 @@ var Offers = (function () {
             applyFilter:applyFilter,
             removeFilterPrice:removeFilterPrice,
             removeFilterCat:removeFilterCat,
+            removeCityFilter:removeCityFilter,
             removeAllFilters:removeAllFilters,
             backFromMore:backFromMore,
             MyOffers:MyOffers
