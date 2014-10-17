@@ -89,6 +89,20 @@ var Offers = (function () {
                 
                return storeName
             },
+             Store: function(){
+                var storeName=[{}];
+                var id=this.get('StoreID');
+                StoresDataSource.fetch(function() {
+                    for (var i=0; i<id.length; i++){
+                        var dataItem = StoresDataSource.get(id[i]);
+                        storeName.push(dataItem.Name);
+                    }
+                });
+                storeName.shift();
+                
+               return storeName
+            },
+     
             User: function () {
                 var stores=[{}];
                 var id=this.get('StoreID');
@@ -254,6 +268,10 @@ var Offers = (function () {
                           "value":parseInt(userViewModel.get("PriceMax"))},
                      {
                         "field":"Category",
+                        "operator":"startswith",
+                        "value":userViewModel.get("catFilter")},
+                    {
+                        "field":"City",
                         "operator":"startswith",
                         "value":userViewModel.get("catFilter")},
                  ]},
