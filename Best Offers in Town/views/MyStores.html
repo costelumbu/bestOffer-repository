@@ -15,7 +15,7 @@
 <div data-role="footer">sdfg</div>
    
 <script type="text/x-kendo-template" id="StoresTemplate">
-    <div data-role="touch" data-bind="events: { tap: removeSelectedStore }">
+    <div data-role="touch" data-bind="events: { tap: OpenModalConfirm }">
          <a data-role="detailbutton" data-style="rowdelete"></a>
         <div >
     <span class="title">Store: ${Name}</span><br>
@@ -31,3 +31,18 @@
     </div>  
     
 </script>
+
+<!-----modal view Confirm!-->
+<div data-role="modalview" id="modalviewConfirmDelete" style="width: 90%;" data-model="Offers">
+    <div data-role="header">
+        <div data-role="navbar">
+            Delete
+        </div>
+    </div>
+Are you sure you want to delete this offer?
+   
+    <div class="allignCenter">
+        <a class="stretchBtb"  type="button" data-role="button" data-bind="click:removeSelectedStore">Yes</a>
+        <a class="stretchBtb"  type="button" data-role="button" href="views/MyStores.html" data-click="onCloseModalClick" transition="none">No</a>
+     </div>
+</div>
