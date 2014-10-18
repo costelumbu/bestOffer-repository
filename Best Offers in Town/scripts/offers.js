@@ -6,6 +6,10 @@ var Offers = (function () {
 
              Id: el.idField,
             fields: {
+                 isActive:{
+                    field: 'isActive'
+                    
+                },
                 Title:{
                     field: 'Title',
                     defaultValue:''
@@ -89,6 +93,18 @@ var Offers = (function () {
                 
                return storeName
             },
+            checkStoreActive: function(){
+                var id=this.get('StoreID');
+                var isActive=true;
+                StoresDataSource.fetch(function() {
+                    for (var i=0; i<id.length; i++){
+                        var dataItem = StoresDataSource.get(id[i]).isActive;
+                        if (dataItem=== false){isActive=false}
+                    }
+                    //console.log(this.isActive);
+                });
+                return {isActive:isActive}
+            },
              City: function(){
                var storeCity=[{}];
                 var id=this.get('StoreID');
@@ -151,8 +167,9 @@ var Offers = (function () {
                     $('#no-activities-span').show();
                 }
             },
+            filter:{field: "isActive", operator:"eq", value:true}&&{field: "checkStoreActive().isActive", operator:"eq", value:true},
            // serverFiltering: true,
-            autoSync: true,
+           // autoSync: true,
             sort: {
                 field: 'CreatedAt',
                 dir: 'desc'
@@ -164,6 +181,10 @@ var Offers = (function () {
                 model: {
                     Id: el.idField,
                     fields: {
+                        isActive:{
+                        field: 'isActive',
+                        defaultValue:false
+                            },
                         UserIdRaw:{
                             field: 'UserIdRaw',
                             defaultValue:''
@@ -241,7 +262,7 @@ var Offers = (function () {
                 template: $("#activityTemplate").html(),
                 pullParameters: function(item) {
                   console.log(item); // the last item currently displayed
-                  return { since_id: item.name };
+                  return { since_id: item.Id };
                 }
               });
 
@@ -251,6 +272,13 @@ var Offers = (function () {
         var activitySelected = function (e) {
 
             app.navigate('views/insideOffer.html?uid=' + e.data.uid);
+        };
+        var removeSelectedStore = function (e) {
+            console.log( e.data);
+            var item=e.data;
+            console.log(item.isActive)
+            
+           // app.navigate('views/insideOffer.html?uid=' + e.data.uid);
         };
 
         // Logout user
@@ -286,6 +314,8 @@ var Offers = (function () {
                         "field":"City().CityName",
                         "operator":"startswith",
                         "value":userViewModel.get("cityFilter")},
+                    {field: "isActive", operator:"eq", value:true},
+                    {field: "checkStoreActive().isActive", operator:"eq", value:true}
                  ]},
             
                 ]);
@@ -322,7 +352,7 @@ var Offers = (function () {
                   userViewModel.set("PriceMin",0);
                     userViewModel.set("PriceMax",500); 
                     userViewModel.set("catFilter","");
-                   Offers.offers.filter([]);
+                   Offers.offers.filter({field: "isActive", operator:"eq", value:true});
                 $("#homeTitle").text("Best Offers");
                    } ; 
        
@@ -337,11 +367,17 @@ var Offers = (function () {
          var MyOffers = function(){
             var thisUserId= userViewModel.get("data").Id;
                          console.log(thisUserId)
-            Offers.offers.filter({ field: "UserId", operator:"eq", value:thisUserId }); 
+            Offers.offers.filter({ field: "User().UserId", operator:"eq", value:thisUserId }); 
             Offers.userViewModel.set("moreOffers",true);
             console.log( Offers.userViewModel.get("moreOffers"));
             $("#homeTitle").text("My Offers");
             app.navigate("#home");
+            
+        };
+          var MyStores = function(){
+            var thisUserId= userViewModel.get("data").Id;
+            console.log(thisUserId)
+            Offers.stores.filter({ field: "UserId", operator:"eq", value:thisUserId }); 
             
         };
 
@@ -349,6 +385,7 @@ var Offers = (function () {
             offers: offersModel.offers,
             stores: offersModel.stores,
             activitySelected: activitySelected,
+            removeSelectedStore:removeSelectedStore,
             logout: logout,
             userViewModel:userViewModel,
             init:init,
@@ -360,7 +397,8 @@ var Offers = (function () {
             removeCityFilter:removeCityFilter,
             removeAllFilters:removeAllFilters,
             backFromMore:backFromMore,
-            MyOffers:MyOffers
+            MyOffers:MyOffers,
+            MyStores:MyStores
         };
 
     }());

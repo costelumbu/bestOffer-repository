@@ -30,7 +30,7 @@
         </ul>
 </div>
 <!-- drawer Left-->
-<div data-role="drawer" id="left-drawer" style="width: 130px" data-title="Menu" data-model="Offers">
+<div data-role="drawer" id="left-drawer" style="width: 60%" data-title="Menu" data-model="Offers">
     <header data-role="header">
         <div data-role="navbar">
             <span data-role="view-title"></span>
@@ -38,18 +38,15 @@
     </header>
     <ul data-role="listview" data-style="inset">
                   <li> <a data-bind="visible:userViewModel.isNotLogged" data-align="right" data-role="button" data-rel="modalview" href="#modalview-login"data-icon="contacts" >LogIn</a></li>
-              
-       
-                <li data-bind="visible:userViewModel.personal" data-icon="organize"><a href="#drawer-drafts" data-transition="none">My wish list</a></li>
-           
-       
-                <li data-bind="visible:userViewModel.business" data-icon="add"><a href="views/addOfferView.html" data-transition="none">Add Offer</a></li>
-                <li data-bind="visible:userViewModel.business" data-icon="organize"><a data-transition="none" data-bind="click:MyOffers">My offers</a></li>
-           
+                <li data-bind="visible:userViewModel.business" data-icon="bookmarks"><a data-transition="none" data-bind="click:MyOffers">My Offers</a></li> 
+                 <li data-bind="visible:userViewModel.business" data-icon="organize"><a data-transition="none" data-bind="click:MyStores" href="views/MyStores.html">My Stores</a></li>
+                <li data-bind="visible:userViewModel.business" data-icon="info"><a data-transition="none" >Analytics</a></li>              
+                <li data-bind="visible:userViewModel.personal" data-icon="organize"><a data-transition="none">My wish list</a></li>
+
        
                 <li ><a  data-transition="none" href="#SkinModal" data-rel="modalview">Change skin</a></li>
-                <li data-bind="visible:userViewModel.personal"><a  data-transition="none" data-icon="settings">My Profile</a></li>
-                <li data-bind="visible:userViewModel.business"><a  data-transition="none" data-icon="settings">My Profile</a></li>
+               <!-- <li data-bind="visible:userViewModel.personal"><a  data-transition="none" data-icon="settings">My Profile</a></li>
+                <li data-bind="visible:userViewModel.business"><a  data-transition="none" data-icon="settings">My Profile</a></li>!-->
                 <li data-bind="invisible:userViewModel.isNotLogged"><a  data-bind= "click:logout" data-role="button" data-icon="reply" >LogOut</a></li>
 
     </ul>
@@ -181,6 +178,7 @@
               <span class="store"> ${Store()}</span> <br>
               <span class="discount">Expires at: ${ExpFormatDate()}</span>
     ${City().CityName}
+
         </div>
     </div>  
     

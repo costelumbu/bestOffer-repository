@@ -1,15 +1,26 @@
 var app = app || {};
 AddStore = (function () {
     'use strict';
-
+    
     var AddViewModel = (function () {
-        var dataSourceStore,UserUid,addOffer;
-         
+        var dataSourceStore,UserUid,storeUid;
+        var lastItemId;
          var insertStore = function () {
-           console.log(dataSourceStore);
-           Offers.stores.add(dataSourceStore);
-            Offers.stores.sync();
-             app.navigate('views/addOfferView.html?uid=' + data.result.Id);
+             if (dataSourceStore.get("Name")&&dataSourceStore.get("Street")&&dataSourceStore.get("City")&&dataSourceStore.get("Phone")){
+                   //console.log(dataSourceStore);
+                   Offers.stores.add(dataSourceStore);
+                   Offers.stores.one("change", function() {
+                       var data = this.data();
+                     var item=data[data.length-1];
+                       lastItemId=item.Id;
+                      console.log(item.Id); 
+                   });
+                    Offers.stores.sync();
+               
+                     $("#modalviewAddStoreOrNot").data("kendoMobileModalView").open();
+                         
+             }
+             else{alert("Please fill in all required fields")}
              
              
         }
@@ -26,10 +37,16 @@ AddStore = (function () {
             kendo.bind($('#signup-formStore'), dataSourceStore, kendo.mobile.ui);               
             
         }
-        var checkAdd= function(e){
+        var checkYes= function(){
+            console.log("check yes");
+           app.navigate('views/addOfferView.html?uid=' + lastItemId);
             
         }
-      
+         var checkNo= function(){
+            console.log("check no");
+            app.navigate("views/home.html");
+        }
+          
          var show = function (e) {
 
             UserUid = e.view.params.uid;
@@ -43,7 +60,8 @@ AddStore = (function () {
             init: init,
             show: show,
             insertStore: insertStore,
-           
+           checkYes:checkYes,
+           checkNo:checkNo 
             
         };
 

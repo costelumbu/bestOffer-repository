@@ -10,16 +10,13 @@ AddOffer = (function () {
         var offerModel;
         var imageArray=[];
         var files = [];
-        var $signUpForm;
-        var $formFields;
-        var $signupBtnWrp;
-        var validator;
         var PictureUrl;
+        var StoreUid;
         
               
          var insertOffer = function () {
 
-            offerModel.set("Images",imageArray) 
+            offerModel.set("Pictures",imageArray) 
             Offers.offers.add(offerModel);
               Offers.offers.sync();
                         console.dir(offerModel);
@@ -29,50 +26,39 @@ AddOffer = (function () {
                                 dataSource: files,
                                template: "<img src='#: data #'width=90%>"
                                });  
-             // $("#imagesList").kendoMobileListView().replace(); 
-             //$("#imagesList").data("kendoMobileListView").replace();
-             app.navigate("#home");
+             alert("Your offer is succesfully added")
+             app.navigate("views/home.html");
         };
-
-       
-        // Executed after show of the Signup view
-        var show = function () {
-            
-            
-            $signUpForm = $('#signUp');
-            $formFields = $signUpForm.find('input, textarea, select');
-            $signupBtnWrp = $('#signupBtnWrp');
-            validator = $signUpForm.kendoValidator({ validateOnBlur: false }).data('kendoValidator');
-
-            $formFields.on('keyup keypress blur change input', function () {
-                if (validator.validate()) {
-                    $signupBtnWrp.removeClass('disabled');
-                } else {
-                    $signupBtnWrp.addClass('disabled');
-                }
-            });
-            
-           offerModel = kendo.observable({
+        var init= function(){
+            offerModel = kendo.observable({
+                    Category:'',
                     Description: '',
                     Discount: '',
-                   Image: 'b58b5590-48dc-11e4-8588-977fab5601d8',
-                   Images:[],
-                    Price:'',
-                    Title: '',
-                    UserId:'',
-                    Category:'',
-                   ExpiresAt:null,
-    
+                    ExpirationDate:'',
+                   FeaturedPicture: 'b58b5590-48dc-11e4-8588-977fab5601d8',
+                   Pictures:[],
+                    FinalPrice:'',
+                    InitialPrice: '',
+                    StoreID:[],
+                    Title:'',
+
                     PictureUrl: function () {
         
-                        return el.Files.getDownloadUrl(this.get('Image'))
+                        return el.Files.getDownloadUrl(this.get('FeaturedPicture'))
                     },
                     
             });
             kendo.bind($('#AddOfferForm'), offerModel, kendo.mobile.ui);
             kendo.bind($('#addPictureView'), offerModel, kendo.mobile.ui);
-            var CurrentUser=Offers.userViewModel.get("data");
-             offerModel.set("UserId",CurrentUser.Id); 
+        }
+       
+        // Executed after show of the Signup view
+        var show = function (e) {
+          
+             StoreUid = e.view.params.uid;
+            offerModel.StoreID.push(StoreUid)
+            console.log(offerModel.get("StoreID"));
+          
                        
                        
         };
@@ -98,7 +84,7 @@ AddOffer = (function () {
                                 dataSource: files,
                                template: "<img src='#: data #'width=90%>"
                                });         
-                            offerModel.set("Image",data.result.Id);
+                            offerModel.set("FeaturedPicture",data.result.Id);
 
                             
                         },
@@ -119,12 +105,12 @@ AddOffer = (function () {
          }
         var onSelectChange = function (sel) {
             var selected = sel.options[sel.selectedIndex].value;
-            //sel.style.color = (selected == 0) ? '#b6c5c6' : '#34495e';
             console.log(selected)
         };
        
         return {
             show: show,
+            init:init,
             addImage:addImage,
             PictureUrl:PictureUrl,
             insertOffer:insertOffer,

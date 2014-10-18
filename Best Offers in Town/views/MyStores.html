@@ -1,25 +1,29 @@
-<div data-role="view" id="home" data-layout="layout"  data-model="Offers" >
+<div data-role="view" id="home"   data-model="Offers" >
     <div data-role="header" >
         <div data-role="navbar"   >
-            <span id="homeTitle" > Best Offers </span>
-            <a data-bind="invisible:userViewModel.moreOffers" data-role="button" data-rel="drawer" href="#left-drawer" data-icon="more" data-align="left" data-click="setMenu"></a>
-            <a data-bind="visible:userViewModel.moreOffers, click: backFromMore" data-role="button"  data-icon="back" data-align="left">Back</a>
-             <a data-role="button" data-rel="drawer" href="#right-drawer" data-icon="action" data-align="right" ></a>
-
+            <span id="homeTitle" > My Stores </span>
+            <a  data-role="button" href="#home" data-align="left" data-icon="back"></a>
+             <a  data-role="button" data-align="right" data-icon="add" href="views/AddStoreLoged.html" >Add</a>
 
         </div>
     </div>
-          <!--  <a  data-align="right" data-role="button" data-bind="click:search" >test</a>!-->
-        <ul  data-role="listview"><li data-align="right" data-icon="search"> <input type="text" id="search" placeholder="search" data-bind="events: { change: search}, value: userViewModel.ProdFilter"/></li> </ul>  
+
     <ul id="OffersListview" data-style="inset" data-role="listview" data-template="StoresTemplate" data-bind="source: stores"></ul>
     
 </div>
 
+<div data-role="footer">sdfg</div>
+   
 <script type="text/x-kendo-template" id="StoresTemplate">
-    <div data-role="touch" data-bind="events: { tap: activitySelected }" >
+    <div data-role="touch" data-bind="events: { tap: removeSelectedStore }">
         
         <div >
-             <span class="title">${Name}</span><br>
+    <span class="title">Store: ${Name}</span><br>
+    <span class="store">City: ${City}</span><br>
+    <span class="discount">Street: ${Street}</span><br>
+    <span class="discount">phone: ${Phone}</span><br>
+    
+   
             
         </div>
     </div>  

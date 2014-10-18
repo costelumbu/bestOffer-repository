@@ -1,4 +1,4 @@
-<div data-role="view" id="signup" data-model="Signup" data-init="Signup.init" data-show="Signup.show" data-hide="Signup.hide">
+<div data-role="view" id="signup" data-model="Signup" data-init="Signup.init" data-show="Signup.show" >
     <div data-role="header">
         <div data-role="navbar">
             Sign up
@@ -32,7 +32,7 @@
        
             <form id="signUp">
                 <ul id="signup-formBus" data-role="listview" data-style="inset" >
-                    <li ><input type="text" id="signupName" data-bind="value: DisplayName"required/> Company Name </li>
+                    <li ><input type="text" id="signupName" data-bind="value: CompanyName"required/> Company Name </li>
                     <li><input type="email" id="signupEmail" data-bind="value: Email" required />Email</li>
                     <li><input type="text" id="signupUsername" data-bind="value: Username"  required/>Username</li>
                     <li><input type="password" id="signupPassword" data-bind="value: Password"  required/>Password</li>

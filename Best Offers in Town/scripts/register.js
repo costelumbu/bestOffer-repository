@@ -60,12 +60,7 @@ Signup = (function () {
         // init form validator
         var init = function () {
             console.log("init");
-
-            
-        }
-
-        var show = function () {
-          Offers.stores.fetch(function() {
+         Offers.stores.fetch(function() {
                 var dataItem = Offers.stores.data()
                  console.log(dataItem);
              });
@@ -83,10 +78,10 @@ Signup = (function () {
                 Username: '',
                 Password: '',
                 isBusiness:true,
-                Picture:'c717e650-5667-11e4-9793-595ba64727f8',
+                Logo:'c717e650-5667-11e4-9793-595ba64727f8',
                 
                 PictureUrl: function(){
-                    return el.Files.getDownloadUrl(this.get('Picture'))
+                    return el.Files.getDownloadUrl(this.get('Logo'))
                 },
                });
             kendo.bind($('#signup-formBus'), dataSourceBus, kendo.mobile.ui);
@@ -98,7 +93,12 @@ Signup = (function () {
                 City:'',
                 Phone:'',
                });
-            kendo.bind($('#signup-formStore'), dataSourceStore, kendo.mobile.ui);               
+            kendo.bind($('#signup-formStore'), dataSourceStore, kendo.mobile.ui);    
+            
+        }
+
+        var show = function () {
+                    
             
             
         };
@@ -122,7 +122,7 @@ Signup = (function () {
                         function (data) {
                             //alert(JSON.stringify(data));
                             console.dir(data.result.Id);
-                            dataSourceBus.set("Picture",data.result.Id)
+                            dataSourceBus.set("Logo",data.result.Id)
                             
                         },
                         function (error) {
