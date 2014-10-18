@@ -15,12 +15,6 @@ var Map = (function () {
             };
             
             map = new google.maps.Map(element, options);
-            Offers.stores.fetch(function() {
-                var dataItem = this.get('455235d0-56c1-11e4-a799-8b449b438b8d');
-                dataItem.set("Name", "UpdateSuccess");
-                this.sync()
-                console.log(dataItem);
-            })
             
             if(navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
