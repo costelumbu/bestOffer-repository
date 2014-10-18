@@ -86,7 +86,7 @@ var Offers = (function () {
                 StoresDataSource.fetch(function() {
                     for (var i=0; i<id.length; i++){
                         var dataItem = StoresDataSource.get(id[i]);
-                        storeName.push(dataItem.Name);
+                        if (dataItem){storeName.push(dataItem.Name)};
                     }
                 });
                 storeName.shift();
@@ -111,12 +111,15 @@ var Offers = (function () {
                 StoresDataSource.fetch(function() {
                     for (var i=0; i<id.length; i++){
                         var dataItem = StoresDataSource.get(id[i]);
-                        storeCity.push(dataItem.City);
+                        if (dataItem){storeCity.push(dataItem.City);}
+                        
                     }
                 });
                 storeCity.shift();
+                 
                 //console.log(storeCity);
                return {CityName: storeCity[0]}
+                
                
             },
      
@@ -167,7 +170,7 @@ var Offers = (function () {
                     $('#no-activities-span').show();
                 }
             },
-            filter:{field: "isActive", operator:"eq", value:true},
+           // filter:{field: "isActive", operator:"eq", value:true},
            // serverFiltering: true,
            // autoSync: true,
             sort: {
@@ -287,10 +290,10 @@ var Offers = (function () {
             console.log( e.data);
             var item=e.data;
             console.log(item.Id);
-           // Offers.stores.remove(item);
-           // Offers.stores.sync();
+            Offers.stores.remove(item);
+            Offers.stores.sync();
            // var x=Offers.offers.get(item.Id);
-            Offers.offers.fetch(function(){
+           /* Offers.offers.fetch(function(){
                   var data = this.data();
                   console.log(data.length);
                 for(var i=0; i<data.length; i++){
@@ -299,7 +302,7 @@ var Offers = (function () {
                         console.log("delete");
                     }
                     }
-                });
+                });*/
 
             
             
@@ -340,7 +343,7 @@ var Offers = (function () {
                         "operator":"startswith",
                         "value":userViewModel.get("cityFilter")},
                     {field: "isActive", operator:"eq", value:true},
-                    {field: "checkStoreActive().isActive", operator:"eq", value:true}
+
                  ]},
             
                 ]);

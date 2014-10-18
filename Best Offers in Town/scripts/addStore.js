@@ -4,22 +4,13 @@ AddStore = (function () {
     
     var AddViewModel = (function () {
         var dataSourceStore,UserUid,storeUid;
-        var lastItemId;
+        var lastItemId,addr;
          var insertStore = function () {
              if (dataSourceStore.get("Name")&&dataSourceStore.get("Street")&&dataSourceStore.get("City")&&dataSourceStore.get("Phone")){
-                   //console.log(dataSourceStore);
-                   Offers.stores.add(dataSourceStore);
-                   Offers.stores.one("change", function() {
-                       var data = this.data();
-                     var item=data[data.length-1];
-                       lastItemId=item.Id;
-                      
-                       var addr=dataSourceStore.get("Street")+' '+dataSourceStore.get("City");
-                       console.log(addr); 
-                       console.log(lastItemId); 
-                       Map.parseAddress(addr,lastItemId);
-                   });
-                    Offers.stores.sync();
+                  addr=dataSourceStore.get("Street")+", "+dataSourceStore.get("City");
+                Map.parseAddress(addr);    
+                 
+                   
                
                      $("#modalviewAddStoreOrNot").data("kendoMobileModalView").open();
                          
@@ -44,11 +35,25 @@ AddStore = (function () {
         }
         var checkYes= function(){
             console.log("check yes");
-           app.navigate('views/addOfferView.html?uid=' + lastItemId);
+            var geo=Offers.userViewModel.get("AddressGeo");
+             dataSourceStore.set("Geo",geo)
+            Offers.stores.add(dataSourceStore);
+               Offers.stores.one("change", function() {
+                       var data = this.data();
+                     var item=data[data.length-1];
+                       lastItemId=item.Id;
+                       app.navigate('views/addOfferView.html?uid=' + lastItemId);
+                   });
+                    Offers.stores.sync();
+           
             
         }
          var checkNo= function(){
             console.log("check no");
+             var geo=Offers.userViewModel.get("AddressGeo");
+             dataSourceStore.set("Geo",geo)
+             Offers.stores.add(dataSourceStore);
+             Offers.stores.sync();
             app.navigate("views/home.html");
         }
           

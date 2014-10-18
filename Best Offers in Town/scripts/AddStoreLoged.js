@@ -35,6 +35,8 @@ AddStoreLogged = (function () {
              StoreModel.set("Geo",geo)
              Offers.stores.add(StoreModel);
                     Offers.stores.sync();
+             $("#modalviewMessage").kendoMobileModalView("close");
+             app.navigate("views/MyStores.html")
          } 
          var show = function () {
 

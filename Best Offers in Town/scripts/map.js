@@ -77,16 +77,16 @@ var Map = (function () {
                       '</div>'+
                       '</div>';
                     google.maps.event.addListener(marker, "click", function () {
-                        console.log(this.getPosition());
+                       // console.log(this.getPosition());
                         infowindow.setContent(this.html);
                         infowindow.setPosition(this.getPosition());
-                        console.log(map.getBounds());
+                      //  console.log(map.getBounds());
                         infowindow.open(map, this);
                     });
                 }              
             });
             for (var i = 0; i < markers.length; i++) {
-                console.log(markers[i]);
+              //  console.log(markers[i]);
                 markers[i].setVisible(true);
             }
         }
@@ -104,9 +104,9 @@ var Map = (function () {
                     dataItem.set("GeoTemp", parsedAddress);
                     this.sync();
                 })*/
-                console.log(parsedAddress);
+               // console.log(parsedAddress);
                 Offers.userViewModel.set("AddressGeo",parsedAddress);
-                console.log( Offers.userViewModel.get("AddressGeo"));             
+               // console.log( Offers.userViewModel.get("AddressGeo"));             
             } else {
                 //alert(errorMessages(status));
             }
@@ -121,7 +121,7 @@ var Map = (function () {
             directionsRenderer.setMap(map);
             
             for (var i = 0; i < markers.length; i++) {
-                console.log(markers[i]);
+             //   console.log(markers[i]);
                 markers[i].setVisible(false);
             }
             
