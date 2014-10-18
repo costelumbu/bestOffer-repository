@@ -175,6 +175,7 @@ var Offers = (function () {
                 dir: 'desc'
             }
         }); 
+
     var StoresDataSource = new kendo.data.DataSource({
             type: 'everlive',
             schema: {
