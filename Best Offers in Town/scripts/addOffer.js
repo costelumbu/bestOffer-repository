@@ -41,6 +41,7 @@ AddOffer = (function () {
                     InitialPrice: '',
                     StoreID:[],
                     Title:'',
+                   isActive:true,
 
                     PictureUrl: function () {
         
