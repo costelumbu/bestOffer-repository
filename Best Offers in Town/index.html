@@ -36,12 +36,22 @@
         <!-- application views will be rendered here -->
         
        <div data-role="footer">
-        <div data-role="tabstrip">
+        <div id="mobile-tabstrip" data-role="tabstrip">
            <a href="#home" data-icon="organize">List</a>
-            <a href="views/map.html" data-icon="globe">Map</a>
+            <a href="views/map.html" data-icon="globe" data-select="Map.drawMarkers">Map</a>
         </div>
     </div>
     </div>
-
+<script>
+    $(function() {
+        $("#mobile-tabstrip").kendoMobileTabStrip({
+            select: function(e) {
+                if (e.item.text() === "Map") {
+                    Map.drawMarkers();
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>
