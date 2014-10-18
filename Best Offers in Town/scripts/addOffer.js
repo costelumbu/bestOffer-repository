@@ -21,7 +21,7 @@ AddOffer = (function () {
 
             offerModel.set("Images",imageArray) 
             Offers.offers.add(offerModel);
-            //  Offers.offers.sync();
+              Offers.offers.sync();
                         console.dir(offerModel);
              imageArray=[];
              files = [];
@@ -71,8 +71,8 @@ AddOffer = (function () {
             });
             kendo.bind($('#AddOfferForm'), offerModel, kendo.mobile.ui);
             kendo.bind($('#addPictureView'), offerModel, kendo.mobile.ui);
-            var x=Offers.userViewModel.get("data");
-             offerModel.set("UserId",x.Id); 
+            var CurrentUser=Offers.userViewModel.get("data");
+             offerModel.set("UserId",CurrentUser.Id); 
                        
                        
         };

@@ -4,7 +4,7 @@ var Offers = (function () {
     var offersModel = (function () {
         var offerModel = {
 
-             Id: 'Id',
+             Id: el.idField,
             fields: {
                 Title:{
                     field: 'Title',
@@ -162,8 +162,16 @@ var Offers = (function () {
             type: 'everlive',
             schema: {
                 model: {
-                     Id: 'Id',
+                    Id: el.idField,
                     fields: {
+                        UserIdRaw:{
+                            field: 'UserIdRaw',
+                            defaultValue:''
+                        },
+                        UserId:{
+                             field: 'UserId',
+                            defaultValue:''
+                        },
                         Name:{
                             field: 'Name',
                             defaultValue:''
@@ -188,14 +196,10 @@ var Offers = (function () {
                 // Required by Backend Services
                 typeName: 'Stores'
             },
-            change: function (e) {
-
-                if (e.items && e.items.length > 0) {
-                    $('#no-activities-span').hide();
-                } else {
-                    $('#no-activities-span').show();
-                }
-            },
+          sync: function(e) {
+                console.log("sync complete");
+              },  
+        //autoSync: true,
         }); 
         return {
             offers: offersDataSource,

@@ -1,0 +1,58 @@
+<div data-role="view" id="signup" data-model="AddStore" data-init="AddStore.init" data-show="AddStore.show"  >
+    <div data-role="header">
+        <div data-role="navbar">
+            Register Stores
+            <a  data-align="left" data-role="backbutton" >Back</a>
+        </div>
+    </div>
+    
+        <ul data-role="listview" data-style="inset" data-type="group"  ><li>Fill in the form
+       
+            <form id="signUpStore">
+                <ul id="signup-formStore" data-role="listview" data-style="inset" >
+                    <li ><input type="text" data-bind="value: Name"required/> Store Name </li>  
+                    <li> City
+                        <select id="signupGenderPicker" data-bind="value: City" onchange="Signup.onSelectChange(this)">
+                            
+                            <option value="Sofia">Sofia</option>
+                            <option value="Varna">Varna</option>
+                            <option value="Burgas">Burgas</option>
+                            <option value="Plovdiv">Plovdiv</option>
+                        </select>
+                    </li>
+                    <li >Street
+                        <textarea id="signupInfo" data-bind="value: Street" ></textarea>
+                    </li>
+                    
+                    <li ><input type="number"  data-bind="value: Phone"required/> Phone </li>
+                </ul>
+            </form>
+            <div  class="signup-btn-wrp disabled">
+                <a class="stretchBtbFull" data-role="button" data-bind="click: insertStore">Register</a>
+             </div>
+                <ul id="OffersListview2" data-style="inset" data-role="listview" data-template="storesTemplate" data-bind="source:source"></ul>
+        </ul>
+    
+</div>
+<!-----modal view add offer???!-->
+<div data-role="modalview" id="modalviewAddStoreOrNot" style="width: 90%;">
+    <div data-role="header">
+        <div data-role="navbar">
+        </div>
+    </div>
+Would you like to add an offer now?
+    <div class="allignCenter">
+        <a class="stretchBtb"  type="button" data-role="button" data-bind="click:checkAdd">Yes</a>
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click:checkAdd">No</a>
+     </div>
+</div>            
+<script type="text/x-kendo-template" id="storesTemplate">
+    <div data-role="touch">
+        
+        <div >
+             <span class="title">${Name}</span><br>
+            
+        </div>
+    </div>  
+    
+</script>
