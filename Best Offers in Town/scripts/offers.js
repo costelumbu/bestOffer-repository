@@ -86,6 +86,19 @@ var Offers = (function () {
                 StoresDataSource.fetch(function() {
                     for (var i=0; i<id.length; i++){
                         var dataItem = StoresDataSource.get(id[i]);
+                        if (dataItem){storeName.push(dataItem.Name)}
+                    }
+                });
+                storeName.shift();
+                
+               return storeName
+            },
+            StoreGeo: function(){
+                var storeGeo=new Everlive.GeoPoint();
+                var id=this.get('StoreID');
+                StoresDataSource.fetch(function() {
+                    for (var i=0; i<id.length; i++){
+                        var dataItem = StoresDataSource.get(id[i]);
                         if (dataItem){storeName.push(dataItem.Name)};
                     }
                 });
@@ -260,7 +273,7 @@ var Offers = (function () {
             catFilter:'',
             cityFilter:'',
             
-            CurrentGeo:'',
+            CurrentGeo:new Everlive.GeoPoint(),
             CurrentCity:'',
             AddressGeo:new Everlive.GeoPoint(),
             
