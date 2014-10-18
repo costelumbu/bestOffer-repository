@@ -24,7 +24,7 @@ var Map = (function () {
         
         var show = function () {
             directionsRenderer.setMap(null);
-            
+            getCurrentCity();
             if(navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -90,6 +90,33 @@ var Map = (function () {
                 markers[i].setVisible(true);
             }
         }
+        
+        var getCurrentCity = function () {
+            var geocoder = new google.maps.Geocoder();
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+                    geocoder.geocode( { 'latLng': initialLocation}, function(results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            var res = results[0].address_components[2].short_name;
+                            console.log(res);                                                        
+                        } else {
+                            //alert(errorMessages(status));
+                        }
+                    });
+                    
+                }, function () {
+                    alert("Geolocation service has failed");
+                    initialLocation = new google.maps.LatLng(42.6975100, 23.3241500);
+                    map.setCenter(initialLocation);
+                });
+            } 
+            else {
+                alert("Your deviced doesn't support Geolocation");
+                initialLocation = new google.maps.LatLng(42.6975100, 23.3241500);
+                map.setCenter(initialLocation);
+            }
+        }
   
         var parseAddress = function (address, id) {
             var geocoder = new google.maps.Geocoder();
@@ -148,7 +175,8 @@ var Map = (function () {
             initMap: initMap,
             show: show,
             parseAddress: parseAddress,
-            drawRoute: drawRoute
+            drawRoute: drawRoute,
+            getCurrentCity: getCurrentCity
         };
     }());
     
