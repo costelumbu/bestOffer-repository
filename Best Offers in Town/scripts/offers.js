@@ -89,6 +89,21 @@ var Offers = (function () {
                 
                return storeName
             },
+             City: function(){
+               var storeCity=[{}];
+                var id=this.get('StoreID');
+                StoresDataSource.fetch(function() {
+                    for (var i=0; i<id.length; i++){
+                        var dataItem = StoresDataSource.get(id[i]);
+                        storeCity.push(dataItem.City);
+                    }
+                });
+                storeCity.shift();
+                //console.log(storeCity);
+               return {CityName: storeCity[0]}
+               
+            },
+     
             User: function () {
                 var stores=[{}];
                 var id=this.get('StoreID');
@@ -96,7 +111,7 @@ var Offers = (function () {
                     for (var i=0; i<id.length; i++){
                         var dataItem = StoresDataSource.get(id[i]);
                        // console.log(dataItem);
-                        stores.push(dataItem.UserID[0]);
+                        stores.push(dataItem.UserId);
                     }
                 });
                 stores.shift();
@@ -106,6 +121,7 @@ var Offers = (function () {
                 })[0];
 
                 return user ? {
+                    UserId:userId,
                     CompanyName: user.CompanyName,
                     PictureUrl: AppHelper.resolveProfilePictureUrl(user.Logo)
                 } : {
@@ -191,6 +207,11 @@ var Offers = (function () {
         
         var userViewModel = kendo.observable({ 
              data: null,
+            skin:'',
+            changeSkin : function () {
+            console.log(this.get("skin"))
+              app.skin(this.get("skin"));
+            }, 
             personal:false,
             business:false,
             isLogged:false,
@@ -200,6 +221,7 @@ var Offers = (function () {
             PriceMax:500,
             PriceSort:'asc',
             catFilter:'',
+            cityFilter:'',
             
             CurrentGeo:'',
             CurrentCity:'',
@@ -234,7 +256,7 @@ var Offers = (function () {
                 .then(app.navigate('#home'))
         };
         
-              
+            
         var search =function(){
             console.log(userViewModel.get("ProdFilter"));
             Offers.offers.filter({ field: "Title", operator: "startswith", value:userViewModel.get("ProdFilter")  })
@@ -256,6 +278,10 @@ var Offers = (function () {
                         "field":"Category",
                         "operator":"startswith",
                         "value":userViewModel.get("catFilter")},
+                    {
+                        "field":"City().CityName",
+                        "operator":"startswith",
+                        "value":userViewModel.get("cityFilter")},
                  ]},
             
                 ]);
@@ -263,6 +289,7 @@ var Offers = (function () {
                   Offers.offers.sort({ field: "FinalPrice", dir: userViewModel.get("PriceSort") });   
                    $("#modalviewPriceFilter").kendoMobileModalView("close");
                     $("#modalviewCatFilter").kendoMobileModalView("close");
+                    $("#modalviewLocFilter").kendoMobileModalView("close");
                  $("#homeTitle").text("Filtered Offers");
                  app.navigate("#home");
         };
@@ -281,6 +308,11 @@ var Offers = (function () {
                     applyFilter();
 
                    } ; 
+        var removeCityFilter = function(){
+                   console.log("remove locat");
+                   userViewModel.set("cityFilter","");
+                    applyFilter();
+                   } ; 
          var removeAllFilters = function(){
                    console.log("remove all");
                   userViewModel.set("PriceMin",0);
@@ -289,6 +321,7 @@ var Offers = (function () {
                    Offers.offers.filter([]);
                 $("#homeTitle").text("Best Offers");
                    } ; 
+       
         var backFromMore = function(){
             console.log("back");
             removeAllFilters();
@@ -320,6 +353,7 @@ var Offers = (function () {
             applyFilter:applyFilter,
             removeFilterPrice:removeFilterPrice,
             removeFilterCat:removeFilterCat,
+            removeCityFilter:removeCityFilter,
             removeAllFilters:removeAllFilters,
             backFromMore:backFromMore,
             MyOffers:MyOffers
