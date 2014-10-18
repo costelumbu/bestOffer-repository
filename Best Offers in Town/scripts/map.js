@@ -7,6 +7,7 @@ var Map = (function () {
         var current;
         var infowindow;
         var directionsRenderer = new google.maps.DirectionsRenderer();
+        var markers = new Array();
 
         var initMap = function () {
             
@@ -22,8 +23,9 @@ var Map = (function () {
         
         
         var show = function () {
+            directionsRenderer.setMap(null);
             
-             if(navigator.geolocation) {
+            if(navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
                     map.setCenter(initialLocation);
@@ -39,19 +41,13 @@ var Map = (function () {
                 initialLocation = new google.maps.LatLng(42.6975100, 23.3241500);
                 map.setCenter(initialLocation);
             }
-            
-        }
-        
-        var drawMarkers = function () {
-            console.log('test');
-            //directionsRenderer.setMap(null);
+
             Offers.stores.fetch(function() {
                 infowindow = new google.maps.InfoWindow({
                     content: "holding...",
                     maxWidth: 320
                 });
                 var data = this.data();
-                console.log('test1');
                 for (var i = 0; i < data.length; i++) {
                     var marker = new google.maps.Marker({
                         position: new google.maps.LatLng(data[i].Geo.latitude, data[i].Geo.longitude),
@@ -59,7 +55,7 @@ var Map = (function () {
                         animation: google.maps.Animation.DROP,
                         html: data[i].Name + "<br/>" + contentString
                       });
-                    console.log('test2');
+                    markers.push(marker);
                     var contentString = '<div id="content">'+
                       '<div id="siteNotice">'+
                       '</div>'+
@@ -87,12 +83,14 @@ var Map = (function () {
                         console.log(map.getBounds());
                         infowindow.open(map, this);
                     });
-                    console.log('test3');
-                    
                 }              
             });
+            for (var i = 0; i < markers.length; i++) {
+                console.log(markers[i]);
+                markers[i].setVisible(true);
+            }
         }
-        
+  
         var parseAddress = function (address, id) {
             var geocoder = new google.maps.Geocoder();
             var res;
@@ -118,6 +116,11 @@ var Map = (function () {
             var origin = new google.maps.LatLng(originEverlive.latitude, originEverlive.longitude);
             var destination = new google.maps.LatLng(destinationEverlive.latitude, destinationEverlive.longitude);
             directionsRenderer.setMap(map);
+            
+            for (var i = 0; i < markers.length; i++) {
+                console.log(markers[i]);
+                markers[i].setVisible(false);
+            }
             
             directionsRenderer.setOptions({
                 draggable: true
@@ -145,8 +148,7 @@ var Map = (function () {
             initMap: initMap,
             show: show,
             parseAddress: parseAddress,
-            drawRoute: drawRoute,
-            drawMarkers: drawMarkers
+            drawRoute: drawRoute
         };
     }());
     
