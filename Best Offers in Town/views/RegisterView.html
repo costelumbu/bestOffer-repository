@@ -36,27 +36,12 @@
                     <li><input type="email" id="signupEmail" data-bind="value: Email" required />Email</li>
                     <li><input type="text" id="signupUsername" data-bind="value: Username"  required/>Username</li>
                     <li><input type="password" id="signupPassword" data-bind="value: Password"  required/>Password</li>
-                    <li> City
-                        <select id="signupGenderPicker" data-bind="value: city" onchange="Signup.onSelectChange(this)">
-                            
-                            <option value="Sofia">Sofia</option>
-                            <option value="Varna">Varna</option>
-                            <option value="Burgas">Burgas</option>
-                            <option value="Plovdiv">Plovdiv</option>
-                        </select>
-                    </li>
-                    <li >Address(line 1)
-                        <textarea id="signupInfo" data-bind="value: address_first" ></textarea>
-                    </li>
-                     <li >Address(line 2)
-                        <textarea id="signupInfo" data-bind="value: address_second" ></textarea>
-                    </li>
-                    <li ><input type="number"  data-bind="value: phone"required/> Phone </li>
+                   
                 </ul>
             </form>
-           <li id="addPicView"><a  data-role="button" data-click="Signup.addImage"><img data-bind="attr: {src:PictureUrl}" alt="styles/images/cameraMin.png"> add Company Logo</a> </li> 
+           <li id="addPicView"><a  data-role="button" data-click="Signup.addImage"><img data-bind="attr: {src:PictureUrl}" alt="styles/images/cameraMin.png" width="50"> add Company Logo</a> </li> 
             <div id="signupBtnWrp" class="signup-btn-wrp disabled">
-                <a  data-role="button" data-bind="click: signupBus">Register</a>
+                <a  data-role="button" data-bind="click: signupBus">Continue</a>
              </div>
         </ul>
     

@@ -6,18 +6,14 @@ Signup = (function () {
     'use strict';
 
     var singupViewModel = (function () {
-        var dataSourcePers;
-        var dataSourceBus;
+        var dataSourcePers, dataSourceBus,dataSourceStore;
         
-        var $signUpForm;
-        var $formFields;
-        var $signupBtnWrp;
-        var validator;
+        
+       
         var pers=false;
         var bus=false;
         var PictureUrl;
         
-        var fileDataSource;
         
         
         var  onSelect= function(e) {
@@ -50,10 +46,10 @@ Signup = (function () {
                 dataSourceBus.Username,
                 dataSourceBus.Password,
                 dataSourceBus)
-            .then(function () {
-                alert("Registration successful");
+            .then(function (data) {
+                console.log(data.result.Id)
                 AllUsers();
-                app.navigate('#home');
+                app.navigate('views/RegisterViewStores.html?uid=' + data.result.Id);
             },
             function (err) {
                 alert(err.message);
@@ -68,21 +64,11 @@ Signup = (function () {
             
         }
 
-        // Executed after show of the Signup view
         var show = function () {
-            $signUpForm = $('#signUp');
-            $formFields = $signUpForm.find('input, textarea, select');
-            $signupBtnWrp = $('#signupBtnWrp');
-            validator = $signUpForm.kendoValidator({ validateOnBlur: false }).data('kendoValidator');
-
-            $formFields.on('keyup keypress blur change input', function () {
-                if (validator.validate()) {
-                    $signupBtnWrp.removeClass('disabled');
-                } else {
-                    $signupBtnWrp.addClass('disabled');
-                }
-            });
-            
+          Offers.stores.fetch(function() {
+                var dataItem = Offers.stores.data()
+                 console.log(dataItem);
+             });
             dataSourcePers = kendo.observable({
                 DisplayName: '',
                 Email: '',
@@ -92,33 +78,31 @@ Signup = (function () {
             });
             kendo.bind($('#signup-formPers'), dataSourcePers, kendo.mobile.ui);
             dataSourceBus = kendo.observable({
-                DisplayName: '',
+                CompanyName: '',
                 Email: '',
                 Username: '',
                 Password: '',
                 isBusiness:true,
-                city:'',
-                province:'',
-                address_first:'',
-                address_second:'',
-                phone:'',
-                Picture:'b58b5590-48dc-11e4-8588-977fab5601d8',
+                Picture:'c717e650-5667-11e4-9793-595ba64727f8',
                 
                 PictureUrl: function(){
                     return el.Files.getDownloadUrl(this.get('Picture'))
                 },
                });
-               
             kendo.bind($('#signup-formBus'), dataSourceBus, kendo.mobile.ui);
            kendo.bind($('#addPicView'), dataSourceBus, kendo.mobile.ui);
+             dataSourceStore = kendo.observable({
+                UserId:'',
+                Name:'',
+                Street:'',
+                City:'',
+                Phone:'',
+               });
+            kendo.bind($('#signup-formStore'), dataSourceStore, kendo.mobile.ui);               
+            
             
         };
-        
-        // Executed after hide of the Signup view
-        // disable signup button
-        var hide = function () {
-            $signupBtnWrp.addClass('disabled');
-        };
+       
 
         var onSelectChange = function (sel) {
             var selected = sel.options[sel.selectedIndex].value;
@@ -160,7 +144,6 @@ Signup = (function () {
         return {
             init: init,
             show: show,
-            hide: hide,
             onSelectChange: onSelectChange,
             signupPers: signupPers,
             signupBus: signupBus,            
