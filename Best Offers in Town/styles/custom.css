@@ -52,3 +52,14 @@
     clear:left;
 
 }
+
+.km-listinset, .km-listgroupinset {
+    margin: 0;
+}
+.km-flat, .km-flat .km-navbar, .km-flat .k-toolbar, .km-flat .km-detail, .km-flat .km-content {
+    background-color: #fff;
+}
+left-drawer {
+    border: none;
+    border-radius: 0;
+}
