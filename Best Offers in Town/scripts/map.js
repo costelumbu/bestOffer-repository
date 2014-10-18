@@ -24,7 +24,7 @@ var Map = (function () {
         
         var show = function () {
             directionsRenderer.setMap(null);
-            getCurrentCity();
+            parseAddress("бул. „княз Александър Дондуков“ 23, Sofia" ,"45fc7100-56ec-11e4-8172-13706619d7e5");
             if(navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -127,7 +127,7 @@ var Map = (function () {
                 var parsedAddress = new Everlive.GeoPoint(res.lng(), res.lat())
                 Offers.stores.fetch(function() {
                     var dataItem = this.get(id);
-                    dataItem.set("Geo", loc);
+                    dataItem.set("Geo", parsedAddress);
                     this.sync();
                 })
                 
