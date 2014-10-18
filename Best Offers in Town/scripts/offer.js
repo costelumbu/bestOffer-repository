@@ -34,8 +34,9 @@ Offer = (function () {
         
         var MoreFromShop = function(){
             console.log("MOre")
-            var thisUserId=activity.UserId;
-            Offers.offers.filter({ field: "UserId", operator:"eq", value:thisUserId }); 
+            var thisUserId=activity.User().UserId;
+            console.log(thisUserId);
+            Offers.offers.filter({ field: "User().UserId", operator:"eq", value:thisUserId }); 
             Offers.userViewModel.set("moreOffers",true);
             console.log( Offers.userViewModel.get("moreOffers"));
             $("#homeTitle").text("More from shop");

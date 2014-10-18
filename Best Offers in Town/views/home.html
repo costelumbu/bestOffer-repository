@@ -47,7 +47,7 @@
                 <li data-bind="visible:userViewModel.business" data-icon="organize"><a data-transition="none" data-bind="click:MyOffers">My offers</a></li>
            
        
-                <li ><a  data-transition="none">Change skin</a></li>
+                <li ><a  data-transition="none" href="#SkinModal" data-rel="modalview">Change skin</a></li>
                 <li data-bind="visible:userViewModel.personal"><a  data-transition="none" data-icon="settings">My Profile</a></li>
                 <li data-bind="visible:userViewModel.business"><a  data-transition="none" data-icon="settings">My Profile</a></li>
                 <li data-bind="invisible:userViewModel.isNotLogged"><a  data-bind= "click:logout" data-role="button" data-icon="reply" >LogOut</a></li>
@@ -64,14 +64,32 @@
     </div>
 
     <ul data-role="listview" data-style="inset">
-        <li><label for="username">Username: <input type="text" id="LogInUsername" value="metro"/></label></li>
-        <li><label for="password">Password: <input type="password" id="LogInPassword" value="metro"/></label></li>
+        <li><label for="username">Username: <input type="text" id="LogInUsername" value="amanda8"/></label></li>
+        <li><label for="password">Password: <input type="password" id="LogInPassword" value="amanda8"/></label></li>
     </ul>
     <div class="allignCenter">
         <a class="stretchBtb" id="modalview-login-button" type="button" data-role="button" data-click="LogIn">Login</a>
         <a class="stretchBtb" id="modalview-reg-button" type="button" data-role="button" href="views/RegisterView.html">Register</a>
      </div>
 </div>
+<!-----modal view Change Skin!-->
+<div data-role="modalview" id="SkinModal" style="width: 90%;" data-model="Offers.userViewModel">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>Skin</span>
+	   <a data-click="onCloseModalClick" data-role="button" data-align="right">Set</a>
+        </div>
+    </div>
+    <ul data-role="listview" data-style="inset" data-type="group" >
+       <li>
+           Choose skin
+            <ul>
+                <li><label><input name="radio" type="radio" value="" data-bind="events:{change:changeSkin}, checked:skin" />Native</label></li>
+                <li><label><input name="radio" type="radio" value="flat" data-bind="events:{change:changeSkin}, checked:skin" />Flat</label></li>
+            </ul>
+        </li>
+    </ul>
+</div>     
 <!-----modal view PriceFilter-->
 <div data-role="modalview" id="modalviewPriceFilter" style="width: 90%;" data-model="Offers">
     <div data-role="header">

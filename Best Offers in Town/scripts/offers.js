@@ -121,6 +121,7 @@ var Offers = (function () {
                 })[0];
 
                 return user ? {
+                    UserId:userId,
                     CompanyName: user.CompanyName,
                     PictureUrl: AppHelper.resolveProfilePictureUrl(user.Logo)
                 } : {
@@ -206,6 +207,11 @@ var Offers = (function () {
         
         var userViewModel = kendo.observable({ 
              data: null,
+            skin:'',
+            changeSkin : function () {
+            console.log(this.get("skin"))
+              app.skin(this.get("skin"));
+            }, 
             personal:false,
             business:false,
             isLogged:false,
@@ -250,7 +256,7 @@ var Offers = (function () {
                 .then(app.navigate('#home'))
         };
         
-              
+            
         var search =function(){
             console.log(userViewModel.get("ProdFilter"));
             Offers.offers.filter({ field: "Title", operator: "startswith", value:userViewModel.get("ProdFilter")  })
