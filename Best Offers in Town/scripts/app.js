@@ -7,7 +7,7 @@ var UsersData;
         app = new kendo.mobile.Application(document.body, {
             transition: 'slide',
             // comment out the following line to get a UI which matches the look
-           // skin: 'flat',
+            skin: 'flat',
             initial: 'views/home.html'
         });
     }, false);
