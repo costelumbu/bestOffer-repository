@@ -4,22 +4,12 @@ AddStoreLogged = (function () {
     
     var AddViewModel = (function () {
         var StoreModel;
+        var addr, lastItemId
          var insertStore = function () {
              if (StoreModel.get("Name")&&StoreModel.get("Street")&&StoreModel.get("City")&&StoreModel.get("Phone")){
-                   //console.log(dataSourceStore);
-                   Offers.stores.add(StoreModel);
-                     Offers.stores.one("change", function() {
-                           var data = this.data();
-                         var item=data[data.length-1];
-                           var lastItemId=item.Id;
-
-                           var addr=StoreModel.get("Street")+", "+StoreModel.get("City");
-                           console.log(addr); 
-                         console.log(lastItemId)
-                           Map.parseAddress(addr,lastItemId);
-                       });
-                    Offers.stores.sync();
-                   app.navigate("views/MyStores.html");      
+                 addr=StoreModel.get("Street")+", "+StoreModel.get("City");
+                Map.parseAddress(addr);      
+                $("#modalviewMessage").data("kendoMobileModalView").open();
              }
              else{alert("Please fill in all required fields")}
              
@@ -40,7 +30,12 @@ AddStoreLogged = (function () {
             
         }
        
-          
+         var loadGeo= function(){
+              var geo=Offers.userViewModel.get("AddressGeo");
+             StoreModel.set("Geo",geo)
+             Offers.stores.add(StoreModel);
+                    Offers.stores.sync();
+         } 
          var show = function () {
 
           var thisUserId= Offers.userViewModel.get("data").Id;
@@ -53,7 +48,8 @@ AddStoreLogged = (function () {
         return {
             init: init,
             insertStore: insertStore,
-            show:show
+            show:show,
+            loadGeo:loadGeo
             
         };
 

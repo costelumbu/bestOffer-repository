@@ -91,20 +91,22 @@ var Map = (function () {
             }
         }
   
-        var parseAddress = function (address, id) {
+        var parseAddress = function (address) {
             var geocoder = new google.maps.Geocoder();
             var res;
             geocoder.geocode( { 'address': address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 res = results[0].geometry.location;
                 var parsedAddress = new Everlive.GeoPoint(res.lng(), res.lat())
-                Offers.stores.fetch(function() {
+               /* Offers.stores.fetch(function() {
                     var dataItem = this.get(id);
                     console.log(parsedAddress);
-                    dataItem.set("Geo", parsedAddress);
+                    dataItem.set("GeoTemp", parsedAddress);
                     this.sync();
-                })
-                
+                })*/
+                console.log(parsedAddress);
+                Offers.userViewModel.set("AddressGeo",parsedAddress);
+                console.log( Offers.userViewModel.get("AddressGeo"));             
             } else {
                 //alert(errorMessages(status));
             }

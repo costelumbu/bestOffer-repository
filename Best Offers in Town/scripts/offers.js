@@ -167,7 +167,7 @@ var Offers = (function () {
                     $('#no-activities-span').show();
                 }
             },
-            filter:{field: "isActive", operator:"eq", value:true}&&{field: "checkStoreActive().isActive", operator:"eq", value:true},
+            filter:{field: "isActive", operator:"eq", value:true},
            // serverFiltering: true,
            // autoSync: true,
             sort: {
@@ -183,8 +183,8 @@ var Offers = (function () {
                     Id: el.idField,
                     fields: {
                         isActive:{
-                        field: 'isActive',
-                        defaultValue:false
+                            field: 'isActive',
+                            defaultValue:false
                             },
                         UserIdRaw:{
                             field: 'UserIdRaw',
@@ -211,6 +211,14 @@ var Offers = (function () {
                             defaultValue: null
                         },
         
+                    },
+                    getOffers: function(){
+                        Offers.offers.fetch(function() {
+                            var dataItem = this.data();
+                            console.log(dataItem);
+
+
+                        })
                     },
                 },
             },
@@ -251,6 +259,7 @@ var Offers = (function () {
             
             CurrentGeo:'',
             CurrentCity:'',
+            AddressGeo:new Everlive.GeoPoint(),
             
             moreOffers:false,
             
@@ -277,7 +286,21 @@ var Offers = (function () {
         var removeSelectedStore = function (e) {
             console.log( e.data);
             var item=e.data;
-            console.log(item.isActive);
+            console.log(item.Id);
+           // Offers.stores.remove(item);
+           // Offers.stores.sync();
+           // var x=Offers.offers.get(item.Id);
+            Offers.offers.fetch(function(){
+                  var data = this.data();
+                  console.log(data.length);
+                for(var i=0; i<data.length; i++){
+                 // console.log(data[i].StoreID);
+                    if (data[i].StoreID[0]===item.Id){
+                        console.log("delete");
+                    }
+                    }
+                });
+
             
             
            // app.navigate('views/insideOffer.html?uid=' + e.data.uid);
@@ -379,9 +402,20 @@ var Offers = (function () {
           var MyStores = function(){
             var thisUserId= userViewModel.get("data").Id;
             console.log(thisUserId)
-            Offers.stores.filter({ field: "UserId", operator:"eq", value:thisUserId }&&{field: "isActive", operator:"eq", value:true}); 
+            Offers.stores.filter([
+                {"logic":"and",
+                 "filters":[
+                     {field: "UserId", operator:"eq", value:thisUserId },
+                    {field: "isActive", operator:"eq", value:true}
+                    ]},
+            
+                ]);
             
         };
+        var show= function(){
+            console.log("in show ")
+           console.log( Offers.userViewModel.get("AddressGeo"))
+        }
 
         return {
             offers: offersModel.offers,
@@ -391,6 +425,7 @@ var Offers = (function () {
             logout: logout,
             userViewModel:userViewModel,
             init:init,
+            show:show,
            
             search:search,
             applyFilter:applyFilter,
