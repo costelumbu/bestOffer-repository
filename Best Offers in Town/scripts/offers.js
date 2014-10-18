@@ -143,7 +143,7 @@ var Offers = (function () {
                     for (var i=0; i<id.length; i++){
                         var dataItem = StoresDataSource.get(id[i]);
                        // console.log(dataItem);
-                        if (dataItem){stores.push(dataItem.UserId)};
+                        stores.push(dataItem.UserId);
                     }
                 });
                 stores.shift();
@@ -299,18 +299,12 @@ var Offers = (function () {
 
             app.navigate('views/insideOffer.html?uid=' + e.data.uid);
         };
-        var ItemforDel;
-        var OpenModalConfirm = function(e){
+        var removeSelectedStore = function (e) {
             console.log( e.data);
-             ItemforDel=e.data;
-            console.log(ItemforDel.Id);
-            $("#modalviewConfirmDelete").data("kendoMobileModalView").open();
-        }
-        var removeSelectedStore = function () {
-            
-            Offers.stores.remove(ItemforDel);
+            var item=e.data;
+            console.log(item.Id);
+            Offers.stores.remove(item);
             Offers.stores.sync();
-            $("#modalviewConfirmDelete").kendoMobileModalView("close");
            // var x=Offers.offers.get(item.Id);
            /* Offers.offers.fetch(function(){
                   var data = this.data();
@@ -448,7 +442,6 @@ var Offers = (function () {
             userViewModel:userViewModel,
             init:init,
             show:show,
-            OpenModalConfirm:OpenModalConfirm,
            
             search:search,
             applyFilter:applyFilter,
