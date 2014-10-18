@@ -24,7 +24,7 @@ var Map = (function () {
         
         var show = function () {
             directionsRenderer.setMap(null);
-            
+            drawRoute(new Everlive.GeoPoint(23.32918040, 42.6982973));
             if(navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -113,38 +113,49 @@ var Map = (function () {
             });
         }
         
-        var drawRoute = function (originEverlive, destinationEverlive) {
+        var drawRoute = function (destinationEverlive) {
             var request;
             var directionsService = new google.maps.DirectionsService();
-            var origin = new google.maps.LatLng(originEverlive.latitude, originEverlive.longitude);
-            var destination = new google.maps.LatLng(destinationEverlive.latitude, destinationEverlive.longitude);
-            directionsRenderer.setMap(map);
-            
-            for (var i = 0; i < markers.length; i++) {
-             //   console.log(markers[i]);
-                markers[i].setVisible(false);
-            }
-            
-            directionsRenderer.setOptions({
-                draggable: true
-            });
-            
-            google.maps.event.addListener(directionsRenderer, 'directions_changed', function () {
-                computeTotalDistanceforRoute(directionsRenderer.directions);
-            });
-            
-            request = {
-                origin: origin,
-                destination: destination,
-                travelMode: google.maps.DirectionsTravelMode.DRIVING
-            }
-            
-            directionsService.route(request, function (response, status) {
-                if (status == google.maps.DirectionsStatus.OK) {
-                    directionsRenderer.setDirections(response);
-                }
-            });
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+                    
+                    var origin = initialLocation;
+                    var destination = new google.maps.LatLng(destinationEverlive.latitude, destinationEverlive.longitude);
+                    directionsRenderer.setMap(map);
+                    
+                    for (var i = 0; i < markers.length; i++) {
+                     //   console.log(markers[i]);
+                        markers[i].setVisible(false);
+                    }
+                    
+                    directionsRenderer.setOptions({
+                        draggable: true
+                    });
+                    
+                    google.maps.event.addListener(directionsRenderer, 'directions_changed', function () {
+                        computeTotalDistanceforRoute(directionsRenderer.directions);
+                    });
+                    
+                    request = {
+                        origin: origin,
+                        destination: destination,
+                        travelMode: google.maps.DirectionsTravelMode.DRIVING
+                    }
+                    
+                    directionsService.route(request, function (response, status) {
+                        if (status == google.maps.DirectionsStatus.OK) {
+                            directionsRenderer.setDirections(response);
+                        }
+                    });
 
+                }, function () {
+                    alert("Geolocation service has failed");
+                    initialLocation = new google.maps.LatLng(42.6975100, 23.3241500);
+                    map.setCenter(initialLocation);
+                });
+            }
+            
         }
         
         return { 
