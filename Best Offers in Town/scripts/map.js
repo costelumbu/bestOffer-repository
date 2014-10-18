@@ -4,6 +4,7 @@ var Map = (function () {
     var mapObject = (function () {
         var map;
         var initialLocation;
+        var current;
 
         var initMap = function () {
             var element = document.getElementById('map_canvas');
@@ -20,28 +21,32 @@ var Map = (function () {
                     map.setCenter(initialLocation);
                 }, function () {
                     alert("Geolocation service has failed");
-                });
+                }, {timeout:10000});
             } 
             else {
                 alert("Your deviced doesn't support Geolocation");
                 initialLocation = new google.maps.LatLng(42.6975100, 23.3241500);
                 map.setCenter(initialLocation);
-
             }
-        }
+           }
+        
         
         var showShops = function () {
             Offers.stores.fetch(function() {
                 var data = this.data();
                 console.log(data.length);
                 for (var i = 0; i < data.length; i++) {
-                    console.log(data[i].Geo.latitude);
+                    //console.log(data[i].Geo.latitude);
                     var marker = new google.maps.Marker({
                           position: new google.maps.LatLng(data[i].Geo.latitude, data[i].Geo.longitude),
                           map: map
                       });
                 }              
             });
+        }
+        
+        var parseAddress = function() {
+            
         }
         
         return { 
