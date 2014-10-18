@@ -277,7 +277,8 @@ var Offers = (function () {
         var removeSelectedStore = function (e) {
             console.log( e.data);
             var item=e.data;
-            console.log(item.isActive)
+            console.log(item.isActive);
+            
             
            // app.navigate('views/insideOffer.html?uid=' + e.data.uid);
         };
@@ -378,7 +379,7 @@ var Offers = (function () {
           var MyStores = function(){
             var thisUserId= userViewModel.get("data").Id;
             console.log(thisUserId)
-            Offers.stores.filter({ field: "UserId", operator:"eq", value:thisUserId }); 
+            Offers.stores.filter({ field: "UserId", operator:"eq", value:thisUserId }&&{field: "isActive", operator:"eq", value:true}); 
             
         };
 

@@ -13,7 +13,11 @@ AddStore = (function () {
                        var data = this.data();
                      var item=data[data.length-1];
                        lastItemId=item.Id;
-                      console.log(item.Id); 
+                      
+                       var addr=dataSourceStore.get("Street")+' '+dataSourceStore.get("City");
+                       console.log(addr); 
+                       console.log(lastItemId); 
+                       Map.parseAddress(addr,lastItemId);
                    });
                     Offers.stores.sync();
                
@@ -33,6 +37,7 @@ AddStore = (function () {
                 Phone:'',
                  Geo:'',
                  Province:'',
+                 isActive:true,
                });
             kendo.bind($('#signup-formStore'), dataSourceStore, kendo.mobile.ui);               
             
@@ -52,7 +57,7 @@ AddStore = (function () {
             UserUid = e.view.params.uid;
             dataSourceStore.set("UserId",UserUid)
             console.log(dataSourceStore.get("UserId"));
-          
+            
         };
       
        

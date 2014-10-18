@@ -100,7 +100,8 @@ var Map = (function () {
                 var parsedAddress = new Everlive.GeoPoint(res.lng(), res.lat())
                 Offers.stores.fetch(function() {
                     var dataItem = this.get(id);
-                    dataItem.set("Geo", loc);
+                    console.log(parsedAddress);
+                    dataItem.set("Geo", parsedAddress);
                     this.sync();
                 })
                 
