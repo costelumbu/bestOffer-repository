@@ -43,7 +43,7 @@ var Map = (function () {
             }
             var PlacePins = function(){
                        
-
+                        console.log("place pins")
                         Offers.stores.fetch(function() {
                             infowindow = new google.maps.InfoWindow({
                                 content: "holding...",

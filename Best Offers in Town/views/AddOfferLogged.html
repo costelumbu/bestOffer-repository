@@ -1,14 +1,16 @@
-<div data-role="view" id="signup" data-model="AddOffer" data-init="AddOffer.init" data-show="AddOffer.show" >
+<div data-role="view" id="signup" data-model="AddOfferLogged" data-init="AddOfferLogged.init" data-show="AddOfferLogged.show" >
     <div data-role="header">
         <div data-role="navbar">
             Add offer
             <a  data-align="left" data-role="backbutton" >Back</a>
         </div>
     </div>
-    
-        <ul data-role="listview" data-style="inset" data-type="group" ><li>Fill in the form
-       
-            <form id="AddOfferForm">
+
+  
+        <ul data-role="listview" data-style="inset" data-type="group" ><li>Select a store
+           <!-- <ul  data-style="inset" data-role="listview" data-template="StoresTemplateChoose" data-source=" Offers.stores"></ul>!-->
+       <li>Fill in the form
+            <form id="AddOfferFormLogged">
                 <ul id="signup-formBus" data-role="listview" data-style="inset" >
                     <li ><input type="text"  data-bind="value: Title"required/> Title </li>
                      <li >Description
@@ -23,9 +25,9 @@
                             <option value="Apparel">Apparel</option>
                             <option value="Accessories">Accessories</option>
                             <option value="Electronics">Electronics</option>
+                            <option value="Other">Other</option>
                         </select>
                     </li>
-                   
                     
                 </ul>
             </form>
@@ -35,6 +37,19 @@
                 <a class="stretchBtbFull" data-role="button" data-bind="click: insertOffer">Add Offer</a>
              </div>
         </ul>
-    
+ <div id="listview"></div>
+
 </div>
-          
+
+
+
+<script type="text/x-kendo-template" id="StoresTemplateChoose">
+    <div data-role="touch" data-tap="AddOfferLogged.getStore">
+         <a data-role="detailbutton" data-style="rowinsert"></a>
+        <div >
+    <span class="store">Store: ${Name}</span><br>
+    <span class="store">id: ${Id}</span><br>
+        </div>
+    </div>  
+    
+</script>          
