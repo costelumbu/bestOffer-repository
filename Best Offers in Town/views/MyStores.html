@@ -2,23 +2,48 @@
     <div data-role="header" >
         <div data-role="navbar"   >
             <span id="homeTitle" > My Stores </span>
-            <a data-role="button" href="#home" data-align="left" data-icon="back"></a>
-             <a data-role="button" data-align="right" data-icon="add" href="views/AddStoreLoged.html" >Add</a>
+            <a  data-role="button" href="#home" data-align="left" data-icon="back"></a>
+             <a  data-role="button" data-align="right" data-icon="add" href="views/AddStoreLoged.html" >Add</a>
+
         </div>
     </div>
+
     <ul id="OffersListview" data-style="inset" data-role="listview" data-template="StoresTemplate" data-bind="source: stores"></ul>
+    
 </div>
 
 <div data-role="footer">sdfg</div>
    
 <script type="text/x-kendo-template" id="StoresTemplate">
-<div data-role="touch" data-bind="events: { tap: removeSelectedStore }">
-    <a data-role="detailbutton" data-style="rowdelete"></a>
-    <div>
-        <span class="title">Store: ${Name}</span><br/>
-        <span class="store">City: ${City}</span><br/>
-        <span class="discount">Street: ${Street}</span><br/>
-        <span class="discount">phone: ${Phone}</span><br/>  
-    </div>
-</div>      
+    <div data-role="touch" data-bind="events: { tap: CheckDeleteStore }">
+         <a data-role="detailbutton" data-style="rowdelete"></a>
+        <div >
+    <span class="title">Store: ${Name}</span><br>
+    <span class="store">City: ${City}</span><br>
+    <span class="discount">Street: ${Street}</span><br>
+    <span class="discount">phone: ${Phone}</span><br>
+   
+        </div>
+    </div>  
+    
 </script>
+
+<!-----modal Check Delete!-->
+<div data-role="modalview" id="modalviewCheckDeleteStore" style="width: 90%;"  data-model="Offers">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>Delete</span>
+        </div>
+    </div>
+    <div class="allignCenter">
+        Are you sure you want to delete this store?
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click:removeSelectedStore">Yes</a>
+        <a class="stretchBtb"  type="button" data-role="button" data-click="closemodalviewCheckDeleteStore">No</a>
+     </div>
+</div>
+<script>
+    function closemodalviewCheckDeleteStore() {
+        $("#modalviewCheckDeleteStore").kendoMobileModalView("close");
+
+    }
+    </script>

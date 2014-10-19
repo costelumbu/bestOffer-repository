@@ -6,18 +6,18 @@
         </div>
     </div>
     
-    <div id="type">
-        <ul  data-role="buttongroup"data-index="3" data-bind="events: { select: onSelect }">
-            <li>Personal</li>
-            <li>Business</li>
-        </ul>
-    </div>
+   <div id="type">
+    <ul  data-role="buttongroup"data-index="3" data-bind="events: { select: onSelect }">
+                      <li >Personal</li>
+                      <li>Business</li>
+                  </ul>
+   </div>
     
-    <ul data-role="listview" data-style="inset" data-type="group"  data-bind="visible: pers" >
-        <li>Fill in the form
+    <ul data-role="listview" data-style="inset" data-type="group"  data-bind="visible: pers" ><li>Fill in the form
+       
         <form id="signUp">
             <ul id="signup-formPers" data-role="listview" data-style="inset" >
-                <li><input type="text" id="signupName" data-bind="value: DisplayName" required/>Name</li>
+                <li ><input type="text" id="signupName" data-bind="value: DisplayName" required/>  Name </li>
                 <li><input type="email" id="signupEmail" data-bind="value: Email" required />Email</li>
                 <li><input type="text" id="signupUsername" data-bind="value: Username"  required/>Username</li>
                 <li><input type="password" id="signupPassword" data-bind="value: Password"  required/>Password</li>
@@ -26,22 +26,24 @@
         <div id="signupBtnWrp" class="signup-btn-wrp disabled">
             <a class="stretchBtbFull" data-role="button" data-bind="click: signupPers">Register</a>
         </div>
-    </ul>
+        </ul>
         
-    <ul data-role="listview" data-style="inset" data-type="group" data-bind="visible: bus">
-        <li>Fill in the form
-        <form id="signUp">
-            <ul id="signup-formBus" data-role="listview" data-style="inset" >
-                <li ><input type="text" id="signupName" data-bind="value: CompanyName"required/>Company Name </li>
-                <li><input type="email" id="signupEmail" data-bind="value: Email" required />Email</li>
-                <li><input type="text" id="signupUsername" data-bind="value: Username" required/>Username</li>
-                <li><input type="password" id="signupPassword" data-bind="value: Password" required/>Password</li>
-            </ul>
-        </form>
-       <li id="addPicView"><a data-role="button" data-click="Signup.addImage"><img data-bind="attr: {src:PictureUrl}" alt="styles/images/cameraMin.png" width="50"> add Company Logo</a></li> 
-        <div >
-            <a class="stretchBtbFull" data-role="button" data-bind="click: signupBus">Continue</a>
-        </div><!--  <=====Div inside UL, outside of li -->
-    </ul>
+        <ul data-role="listview" data-style="inset" data-type="group"  data-bind="visible: bus" ><li>Fill in the form
+       
+            <form id="signUp">
+                <ul id="signup-formBus" data-role="listview" data-style="inset" >
+                    <li ><input type="text" id="signupName" data-bind="value: CompanyName"required/> Company Name </li>
+                    <li><input type="email" id="signupEmail" data-bind="value: Email" required />Email</li>
+                    <li><input type="text" id="signupUsername" data-bind="value: Username"  required/>Username</li>
+                    <li><input type="password" id="signupPassword" data-bind="value: Password"  required/>Password</li>
+                   
+                </ul>
+            </form>
+           <li id="addPicView"><a  data-role="button" data-click="Signup.addImage"><img data-bind="attr: {src:PictureUrl}" alt="styles/images/cameraMin.png" width="50"> add Company Logo</a> </li> 
+            <div >
+                <a class="stretchBtbFull" data-role="button" data-bind="click: signupBus">Continue</a>
+             </div>
+        </ul>
+    
 </div>
           

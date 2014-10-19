@@ -16,26 +16,34 @@
     
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCzj-w66KT16vdRXmlrZjYSqTa90lTI9UU&sensor=true"></script>
 
+    <script type="text/javascript" src="kendo/js/data/data.json"></script>
+
+
     <script src="scripts/app.js"></script>
     <script src="scripts/offer.js"></script>
     <script src="scripts/offers.js"></script>    
     <script src="scripts/register.js"></script>
     <script src="scripts/addOffer.js"></script>  
     <script src="scripts/addStore.js"></script>
-    <script src="scripts/AddStoreLoged.js"></script>  
+    <script src="scripts/AddStoreLoged.js"></script>
+    <script src="scripts/AddOfferLogged.js"></script>  
     <script src="scripts/map.js"></script> 
 
 
 </head>
 <body>
+ 
     <div data-role="layout" data-id="layout">
-        <!-- application views will be rendered here --> 
-        <div data-role="footer">
-            <div id="mobile-tabstrip" data-role="tabstrip">
-                <a href="#home" data-icon="organize">List</a>
-                <a href="views/map.html" data-icon="globe" data-select="Map.drawMarkers">Map</a>
-            </div>
+        
+        <!-- application views will be rendered here -->
+        
+       <div data-role="footer">
+        <div id="mobile-tabstrip" data-role="tabstrip">
+           <a href="#home" data-icon="organize">List</a>
+            <a href="views/map.html" data-icon="globe" data-select="Map.PlacePins">Map</a>
         </div>
     </div>
+    </div>
+
 </body>
 </html>

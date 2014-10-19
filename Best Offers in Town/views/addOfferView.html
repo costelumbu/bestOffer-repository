@@ -2,36 +2,39 @@
     <div data-role="header">
         <div data-role="navbar">
             Add offer
-            <a data-align="left" data-role="backbutton">Back</a>
+            <a  data-align="left" data-role="backbutton" >Back</a>
         </div>
     </div>
     
-    <ul data-role="listview" data-style="inset" data-type="group" >
-        <li>Fill in the form
-        <form id="AddOfferForm">
-            <ul id="signup-formBus" data-role="listview" data-style="inset" >
-                <li><input type="text" data-bind="value: Title"required/> Title </li>
-                 <li>Description
-                    <textarea id="signupInfo" data-bind="value: Description" ></textarea>
-                </li>
-                <li><input type="number" data-bind="value: InitialPrice" required />Initial Price</li>
-                <li><input type="number" data-bind="value: FinalPrice" required/>Final Price</li>
-                <li><input type="date" data-bind="value: ExpirationDate" required/>Expirates at</li>                    
-                <li>Category
-                    <select id="signupGenderPicker" data-bind="value: Category" onchange="AddOffer.onSelectChange(this)">
-                        <option value="Apparel">Apparel</option>
-                        <option value="Accessories">Accessories</option>
-                        <option value="Electronics">Electronics</option>
-                    </select>
-                </li>     
-            </ul>
-        </form>
-        <ul id="imagesList">
-            <li id="addPictureView"><a data-role="button" data-click="AddOffer.addImage"><img src="styles/images/cameraMin.png" alt="styles/images/cameraMin.png"> attach Picture</a> </li> 
+        <ul data-role="listview" data-style="inset" data-type="group" ><li>Fill in the form
+       
+            <form id="AddOfferForm">
+                <ul id="signup-formBus" data-role="listview" data-style="inset" >
+                    <li ><input type="text"  data-bind="value: Title"required/> Title </li>
+                     <li >Description
+                        <textarea id="signupInfo" data-bind="value: Description" ></textarea>
+                    </li>
+                    <li><input type="number" data-bind="value: InitialPrice" required />Initial Price</li>
+                    <li><input type="number"  data-bind="value: FinalPrice"  required/>Final Price</li>
+                    <li><input type="date"  data-bind="value: ExpirationDate"  required/>Expirates at</li>                    
+                    <li> Category
+                        <select id="signupGenderPicker" data-bind="value: Category" onchange="AddOffer.onSelectChange(this)">
+                            
+                            <option value="Apparel">Apparel</option>
+                            <option value="Accessories">Accessories</option>
+                            <option value="Electronics">Electronics</option>
+                        </select>
+                    </li>
+                   
+                    
+                </ul>
+            </form>
+           <ul id="imagesList"></ul>
+            <li id="addPictureView"><a  data-role="button" data-click="AddOffer.addImage"><img src="styles/images/cameraMin.png" alt="styles/images/cameraMin.png"> attach Picture</a> </li> 
+            <div >
+                <a class="stretchBtbFull" data-role="button" data-bind="click: insertOffer">Add Offer</a>
+             </div>
         </ul>
-        <div>
-            <a class="stretchBtb" data-role="button" data-bind="click: insertOffer">Add Offer</a>
-        </div>
-    </ul> 
+    
 </div>
           

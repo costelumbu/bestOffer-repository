@@ -1,14 +1,17 @@
 <div data-role="view" id="home" data-layout="layout"  data-model="Offers" data-init="Offers.init" data-show="Offers.show" >
-    <div data-role="header">
-        <div data-role="navbar">
+    <div data-role="header" >
+        <div data-role="navbar"   >
             <span id="homeTitle" > Best Offers </span>
             <a data-bind="invisible:userViewModel.moreOffers" data-role="button" data-rel="drawer" href="#left-drawer" data-icon="more" data-align="left" data-click="setMenu" id="left-drawer"></a>
             <a data-bind="visible:userViewModel.moreOffers, click: backFromMore" data-role="button"  data-icon="back" data-align="left">Back</a>
-            <a data-role="button" data-rel="drawer" href="#right-drawer" data-icon="action" data-align="right" ></a>
+             <a data-role="button" data-rel="drawer" href="#right-drawer" data-icon="action" data-align="right" ></a>
+
+
         </div>
     </div>
-    <ul  data-role="listview"><li data-align="right" data-icon="search"> <input type="text" id="search" placeholder="search" data-bind="events: { change: search}, value: userViewModel.ProdFilter"/></li> </ul>  
+        <ul  data-role="listview"><li data-align="right" data-icon="search"> <input type="text" id="search" placeholder="search" data-bind="events: { change: search}, value: userViewModel.ProdFilter"/></li> </ul>  
     <ul id="OffersListview" data-style="inset" data-role="listview" data-template="activityTemplate" data-bind="source: offers"></ul>
+    
 </div>
 
 <!-- drawer right-->
@@ -19,11 +22,11 @@
         </div>
     </header>
     <ul data-role="listview" data-style="inset" >
-        <li><a data-rel="modalview" href="#modalviewPriceFilter" data-transition="none">Price</a></li>
-        <li><a data-rel="modalview" href="#modalviewCatFilter" data-transition="none">Category</a></li>
-        <li><a data-rel="modalview" href="#modalviewLocFilter" data-transition="none">Location</a></li>
-        <li data-icon="delete"><a href="#home" data-transition="none" data-bind="click:removeAllFilters">Remove All Filters</a></li>
-    </ul>
+        <li ><a data-rel="modalview" href="#modalviewPriceFilter" data-transition="none">Price</a></li>
+        <li><a  data-rel="modalview" href="#modalviewCatFilter" data-transition="none">Category</a></li>
+         <li ><a data-rel="modalview" href="#modalviewLocFilter" data-transition="none">Location</a></li>
+          <li data-icon="delete" ><a href="#home" data-transition="none" data-bind="click:removeAllFilters">Remove All Filters</a></li>
+        </ul>
 </div>
 <!-- drawer Left-->
 <div data-role="drawer" id="left-drawer" data-swipe-to-open="false" style="width: 60%" data-title="Menu" data-model="Offers">
@@ -33,15 +36,18 @@
         </div>
     </header>
     <ul data-role="listview" data-style="inset">
-        <li><a data-bind="visible:userViewModel.isNotLogged" data-align="right" data-role="button" data-rel="modalview" href="#modalview-login"data-icon="contacts" >LogIn</a></li>
-        <li data-bind="visible:userViewModel.business" data-icon="bookmarks"><a data-transition="none" data-bind="click:MyOffers">My Offers</a></li> 
-        <li data-bind="visible:userViewModel.business" data-icon="organize"><a data-transition="none" data-bind="click:MyStores" href="views/MyStores.html">My Stores</a></li>
-        <li data-bind="visible:userViewModel.business" data-icon="info"><a data-transition="none" >Analytics</a></li>              
-        <li data-bind="visible:userViewModel.personal" data-icon="organize"><a data-transition="none">My wish list</a></li>
-        <li ><a  data-transition="none" href="#SkinModal" data-rel="modalview">Change skin</a></li>
-        <!-- <li data-bind="visible:userViewModel.personal"><a  data-transition="none" data-icon="settings">My Profile</a></li>
-        <li data-bind="visible:userViewModel.business"><a  data-transition="none" data-icon="settings">My Profile</a></li>!-->
-        <li data-bind="invisible:userViewModel.isNotLogged"><a  data-bind= "click:logout" data-role="button" data-icon="reply" >LogOut</a></li>
+                  <li> <a data-bind="visible:userViewModel.isNotLogged" data-align="right" data-role="button" data-rel="modalview" href="#modalview-login"data-icon="contacts" >LogIn</a></li>
+                <li data-bind="visible:userViewModel.business" data-icon="bookmarks"><a data-transition="none" data-bind="click:MyOffers" href="views/MyOffers.html">My Offers</a></li> 
+                 <li data-bind="visible:userViewModel.business" data-icon="organize"><a data-transition="none" data-bind="click:MyStores" href="views/MyStores.html">My Stores</a></li>
+               <!-- <li data-bind="visible:userViewModel.business" data-icon="info"><a data-transition="none" >Analytics</a></li>  !-->            
+                <li data-bind="visible:userViewModel.personal" data-icon="organize"><a data-transition="none">My wish list</a></li>
+
+       
+                <li ><a  data-transition="none" href="#SkinModal" data-rel="modalview">Change skin</a></li>
+               <!-- <li data-bind="visible:userViewModel.personal"><a  data-transition="none" data-icon="settings">My Profile</a></li>
+                <li data-bind="visible:userViewModel.business"><a  data-transition="none" data-icon="settings">My Profile</a></li>!-->
+                <li data-bind="invisible:userViewModel.isNotLogged"><a  data-bind= "click:logout" data-role="button" data-icon="reply" >LogOut</a></li>
+
     </ul>
 </div>
 <!-----modal view Log in!-->
@@ -90,24 +96,23 @@
     </div>
     <ul data-role="listview" data-style="inset" data-type="group">
         <li> Select filter options
-            <ul>
-                <li><label><input name="radio" type="radio" checked="checked" value="asc" data-bind="checked:userViewModel.PriceSort" />Ascending</label></li>
+            <ul><li><label><input name="radio" type="radio" checked="checked" value="asc" data-bind="checked:userViewModel.PriceSort" />Ascending</label></li>
                 <li><label><input name="radio"  type="radio" value="desc" data-bind="checked:userViewModel.PriceSort" />Descending</label></li>
             </ul>
           </li> 
         <li>Price Range
             <ul> 
-                <li>From <span data-bind="text:userViewModel.PriceMin"></span> Lev.</li>
-                <li>To <span data-bind="text:userViewModel.PriceMax"></span> Lev.</li> 
+                <li> From <span data-bind="text:userViewModel.PriceMin"></span> Lev.</li>
+                <li> To <span data-bind="text:userViewModel.PriceMax"></span> Lev.</li> 
                 <li><label>Min<input id="slider" type="range" min="1" max="500"  data-bind="value:userViewModel.PriceMin" /></label></li>                
                 <li><label>Max<input id="slider" type="range" min="1" max="500" data-bind="value:userViewModel.PriceMax" /></label></li>
             </ul>
         </li>
     </ul>
     <div class="allignCenter">
-        <a class="stretchBtb" type="button" data-role="button" data-bind="click: applyFilter">Apply Filter</a>
-        <a class="stretchBtb" type="button" data-role="button" data-bind="click: removeFilterPrice">Remove Filter</a>
-    </div>
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click: applyFilter" >Apply Filter</a>
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click: removeFilterPrice" >Remove Filter</a>
+        </div>
 
 </div>
 <!-----modal view Category Filter-->
@@ -122,14 +127,15 @@
         <li>
            <ul>
                <li><label><input name="radio" type="radio" checked="checked" value="Apparel" data-bind="checked:userViewModel.catFilter" />Apparel</label></li>
-               <li><label><input name="radio" type="radio" value="Accessories" data-bind="checked:userViewModel.catFilter" />Accessories</label></li>
-               <li><label><input name="radio" type="radio" value="Electronics" data-bind="checked:userViewModel.catFilter" />Electronics</label></li>
+                <li><label><input name="radio"  type="radio" value="Accessories" data-bind="checked:userViewModel.catFilter" />Accessories</label></li>
+                <li><label><input name="radio"  type="radio" value="Electronics" data-bind="checked:userViewModel.catFilter" />Electronics</label></li>
             </ul>
-       </li>     
+       </li>
+        
      </ul>
     <div class="allignCenter">
-        <a class="stretchBtb" type="button" data-role="button" data-bind="click: applyFilter">Apply Filter</a>
-        <a class="stretchBtb" type="button" data-role="button" data-bind="click: removeFilterCat">Remove Filter</a>
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click: applyFilter" >Apply Filter</a>
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click: removeFilterCat" >Remove Filter</a>
     </div>
 </div>
 <!-----modal view City Filter-->
@@ -143,14 +149,15 @@
     <ul data-role="listview" data-style="inset" data-type="group">
         <li>
            <ul>
-                <li><label><input name="radio" type="radio" value="Sofia" data-bind="checked:userViewModel.cityFilter" />Sofia</label></li>
-                <li><label><input name="radio" type="radio" value="Varna" data-bind="checked:userViewModel.cityFilter" />Varna</label></li>
-                <li><label><input name="radio" type="radio" value="Burgas" data-bind="checked:userViewModel.cityFilter" />Burgas</label></li>
-                <li><label><input name="radio" type="radio" value="Plovdid" data-bind="checked:userViewModel.cityFilter" />Plovdid</label></li>
-                <li><label><input name="radio" type="radio" value="Ruse" data-bind="checked:userViewModel.cityFilter" />Ruse</label></li>
-                <li><label><input name="radio" type="radio" value="Targovishte" data-bind="checked:userViewModel.cityFilter" />Targovishte</label></li>
+                 <li><label><input name="radio" type="radio" value="Sofia" data-bind="checked:userViewModel.cityFilter" />Sofia</label></li>
+                <li><label><input name="radio"  type="radio" value="Varna" data-bind="checked:userViewModel.cityFilter" />Varna</label></li>
+                <li><label><input name="radio"  type="radio" value="Burgas" data-bind="checked:userViewModel.cityFilter" />Burgas</label></li>
+                <li><label><input name="radio"  type="radio" value="Plovdid" data-bind="checked:userViewModel.cityFilter" />Plovdid</label></li>
+                <li><label><input name="radio"  type="radio" value="Ruse" data-bind="checked:userViewModel.cityFilter" />Ruse</label></li>
+                <li><label><input name="radio"  type="radio" value="Targovishte" data-bind="checked:userViewModel.cityFilter" />Targovishte</label></li>
             </ul>
        </li>
+        
      </ul>
     <div class="allignCenter">
         <a class="stretchBtb" type="button" data-role="button" data-bind="click: applyFilter" >Apply Filter</a>
@@ -161,18 +168,21 @@
 <!-- offers ListView Template -->
 <script type="text/x-kendo-template" id="activityTemplate">
     <div data-role="touch" data-bind="events: { tap: activitySelected }" >
-        <div>
-            <div class="overlay"></div>
-            <div class="discount-overlay">${calculateDiscount()}%</div>
-            <img class="homeLine" data-bind="attr:{src: PictureUrl}" alt="styles/images/avatar.png" width="40%" />
-            <span class="title">${Title}</span><br>
-            <span class="price">${FinalPrice}  </span> <span class="discount">Lev.</span><br>
-            <span class="discount">${calculateDiscount()}% discount</span><br>
-            <span class="store"> ${Store()}</span> <br>
-            <span class="discount">Expires at: ${ExpFormatDate()}</span>
-            ${City().CityName}
+        
+        <div >
+        <div class="overlay"></div>
+        <div class="discount-overlay">${calculateDiscount()}%</div>
+     <img class="homeLine" data-bind="attr:{src: PictureUrl}" alt="styles/images/avatar.png" width="40%" />
+             <span class="title">${Title}</span><br>
+             <span class="price">${FinalPrice}  </span> <span class="discount">Lev.</span><br>
+              <span class="store"> ${Store().Name}</span> <br>
+              <span class="discount">Expires at: ${ExpFormatDate()}</span>
+    ${Store().City}
+   
+
         </div>
     </div>  
+    
 </script>
 
 
@@ -313,3 +323,6 @@
     }
 
 </style>            
+<script>
+
+</script>

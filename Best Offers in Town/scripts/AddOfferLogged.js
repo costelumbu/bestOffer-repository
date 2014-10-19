@@ -67,26 +67,10 @@ AddOfferLogged = (function () {
         }
        var getStore= function(e){
           console.log( e.data);
-           console.log("get store");
-           // Get kendo listview.
-                var $listView = e.sender;
-                var data = $listView.dataSource.view();
-
-                // Get the selected DOM elements as jQuery objects.
-                var $selectedElements = $listView.select();
-
-                // Convert the selected  jQuery DOM elements to a Array containing only "Product" objects.
-                var selected = $.map($selectedElements, function (item)
-                {
-                    var index = $(item).index();
-                    return data[index];
-                });
-
-                // Log the selected products to the console.
-                console.log(selected);
+           console.log("get store")
        }
         var show = function () {
-          /*
+          
              $("#listview").kendoListView({
                 dataSource: Offers.stores,
                 template: kendo.template($("#StoresTemplateChoose").html()),
@@ -98,7 +82,7 @@ AddOfferLogged = (function () {
                 }
             });
 
-               */        
+                       
                        
         };
         
