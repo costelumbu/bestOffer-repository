@@ -1,50 +1,45 @@
-<div data-role="view" id="signup" data-model="AddStoreLogged" data-init="AddStoreLogged.init" data-show="AddStoreLogged.show"  >
+<div data-role="view" id="signup" data-model="AddStoreLogged" data-init="AddStoreLogged.init" data-show="AddStoreLogged.show">
     <div data-role="header">
         <div data-role="navbar">
             Add Store
-            <a  data-align="left" data-role="backbutton" >Back</a>
-           <a  data-align="right" data-role="backbutton" >Back</a> 
+            <a data-align="left" data-role="backbutton" >Back</a>
+            <a data-align="right" data-role="backbutton" >Back</a> 
         </div>
     </div>
     
-        <ul data-role="listview" data-style="inset" data-type="group"  ><li>Fill in the form
-       
-            <form >
-                <ul id="signup-formStoreLogged" data-role="listview" data-style="inset" >
-                    <li ><input type="text" data-bind="value: Name"required/> Store Name </li>  
-                    <li> City
-                        <select id="signupGenderPicker" data-bind="value: City" onchange="Signup.onSelectChange(this)">
-                            
-                            <option value="Sofia">Sofia</option>
-                            <option value="Varna">Varna</option>
-                            <option value="Burgas">Burgas</option>
-                            <option value="Plovdiv">Plovdiv</option>
-                        </select>
-                    </li>
-                    <li >Street
-                        <textarea id="signupInfo" data-bind="value: Street" ></textarea>
-                    </li>
-                    
-                    <li ><input type="number"  data-bind="value: Phone"required/> Phone </li>
-                </ul>
-            </form>
-            <div >
-                <a class="stretchBtbFull" data-role="button" data-bind="click: insertStore">Add</a>
-             </div>
-
-        </ul>
-    
+    <ul data-role="listview" data-style="inset" data-type="group">
+        <li>Fill in the form
+        <form>
+            <ul id="signup-formStoreLogged" data-role="listview" data-style="inset" >
+                <li><input type="text" data-bind="value: Name"required/> Store Name </li>  
+                <li>City
+                    <select id="signupGenderPicker" data-bind="value: City" onchange="Signup.onSelectChange(this)">
+                        <option value="Sofia">Sofia</option>
+                        <option value="Varna">Varna</option>
+                        <option value="Burgas">Burgas</option>
+                        <option value="Plovdiv">Plovdiv</option>
+                    </select>
+                </li>
+                <li>Street
+                    <textarea id="signupInfo" data-bind="value: Street"></textarea>
+                </li>
+                <li><input type="number" data-bind="value: Phone"required/> Phone</li>
+            </ul>
+        </form>
+        <div>
+            <a class="stretchBtbFull" data-role="button" data-bind="click: insertStore">Add</a>
+         </div>
+    </ul>
 </div>
             
-            <!-----modal view add offer???!-->
+<!-----modal view add offer???!-->
 <div data-role="modalview" id="modalviewMessage" style="width: 90%;" data-model="AddStoreLogged">
     <div data-role="header">
         <div data-role="navbar">
         </div>
     </div>
-Your offer has been succesfully added
+    Your offer has been succesfully added
     <div class="allignCenter">
-        <a class="stretchBtb"  type="button" data-role="button" data-bind="click:loadGeo">OK</a>
-
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click:loadGeo">OK</a>
      </div>
 </div>        
