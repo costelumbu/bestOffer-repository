@@ -37,9 +37,9 @@
     </header>
     <ul data-role="listview" data-style="inset">
                   <li> <a data-bind="visible:userViewModel.isNotLogged" data-align="right" data-role="button" data-rel="modalview" href="#modalview-login"data-icon="contacts" >LogIn</a></li>
-                <li data-bind="visible:userViewModel.business" data-icon="bookmarks"><a data-transition="none" data-bind="click:MyOffers">My Offers</a></li> 
+                <li data-bind="visible:userViewModel.business" data-icon="bookmarks"><a data-transition="none" data-bind="click:MyOffers" href="views/MyOffers.html">My Offers</a></li> 
                  <li data-bind="visible:userViewModel.business" data-icon="organize"><a data-transition="none" data-bind="click:MyStores" href="views/MyStores.html">My Stores</a></li>
-                <li data-bind="visible:userViewModel.business" data-icon="info"><a data-transition="none" >Analytics</a></li>              
+               <!-- <li data-bind="visible:userViewModel.business" data-icon="info"><a data-transition="none" >Analytics</a></li>  !-->            
                 <li data-bind="visible:userViewModel.personal" data-icon="organize"><a data-transition="none">My wish list</a></li>
 
        
@@ -175,11 +175,10 @@
      <img class="homeLine" data-bind="attr:{src: PictureUrl}" alt="styles/images/avatar.png" width="40%" />
              <span class="title">${Title}</span><br>
              <span class="price">${FinalPrice}  </span> <span class="discount">Lev.</span><br>
-             <span class="discount">${calculateDiscount()}% discount</span><br>
               <span class="store"> ${Store().Name}</span> <br>
               <span class="discount">Expires at: ${ExpFormatDate()}</span>
     ${Store().City}
-        
+   
 
         </div>
     </div>  

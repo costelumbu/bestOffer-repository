@@ -21,7 +21,7 @@ Offer = (function () {
             offerUid = e.view.params.uid;
             // Get current activity (based on item uid) from Activities model
             activity = Offers.offers.getByUid(offerUid);
-            console.dir(activity.Geo);
+            console.dir(activity.Store().Geo);
             kendo.bind(e.view.element, activity, kendo.mobile.ui);
              function logArrayElements(element, index, array) {
               //console.log('a[' + index + '] = ' + element);
@@ -44,31 +44,18 @@ Offer = (function () {
             
         };
         
-        var removeActivity = function () {
-            
-            var activities = Offers.offers;
-            var activity = activities.getByUid(offerUid);
-            
-            app.showConfirm(
-                appSettings.messages.removeActivityConfirm,
-                'Delete Activity',
-                function (confirmed) {
-                    if (confirmed === true || confirmed === 1) {
-                        
-                        activities.remove(activity);
-                        activities.one('sync', function () {
-                            app.mobileApp.navigate('#:back');
-                        });
-                        activities.sync();
-                    }
-                }
-            );
-        };
+       var  planRoute =function(){
+           console.log("Planning");
+           if (activity.Store().Geo){
+           Map.drawRoute(activity.Store().Geo);}
+           app.navigate("views/map.html")
+       }
         
         return {
             init: init,
             show: show,
             MoreFromShop:MoreFromShop,
+            planRoute:planRoute,
             activity: function () {
                 return activity;
             },
