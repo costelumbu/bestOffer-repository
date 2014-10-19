@@ -11,13 +11,15 @@ AddOfferLogged = (function () {
         var imageArray=[];
         var files = [];
         var PictureUrl;
-        var MyStores=new kendo.data.DataSource({})
-        
+       var SelectedStore = kendo.observable({ 
+             Name: '',
+            Id:null})
         
               
          var insertOffer = function () {
-
-            offerModel.set("Pictures",imageArray) 
+            offerModel.StoreID.push(SelectedStore.get("Id"));
+            offerModel.set("Pictures",imageArray);
+            offerModel.set("FeaturedPicture",imageArray[0]);
             Offers.offers.add(offerModel);
               Offers.offers.sync();
                         console.dir(offerModel);
@@ -27,8 +29,9 @@ AddOfferLogged = (function () {
                                 dataSource: files,
                                template: "<img src='#: data #'width=90%>"
                                });  
+             alert("Your offer is succesfully added");
              app.navigate("views/home.html");
-             alert("Your offer is succesfully added")
+             
              
         };
         var init= function(){
@@ -66,21 +69,15 @@ AddOfferLogged = (function () {
                 ]);
         }
        var getStore= function(e){
-          console.log( e.data);
-           console.log("get store")
+          console.log( e.dataItem.Id);
+           SelectedStore.set("Name",e.dataItem.Name);
+            SelectedStore.set("Id",e.dataItem.Id);
+           
+            
        }
         var show = function () {
           
-             $("#listview").kendoListView({
-                dataSource: Offers.stores,
-                template: kendo.template($("#StoresTemplateChoose").html()),
-                selectable: true,
-                change: function() {
-                    var index = this.select().index(),
-                        dataItem = this.dataSource.view()[index];
-                    console.log("id: " + dataItem.id + ", text: " + dataItem.text);
-                }
-            });
+             
 
                        
                        
@@ -107,9 +104,7 @@ AddOfferLogged = (function () {
                                 dataSource: files,
                                template: "<img src='#: data #'width=90%>"
                                });         
-                            offerModel.set("FeaturedPicture",data.result.Id);
-
-                            
+                
                         },
                         function (error) {
                             alert(JSON.stringify(error));
@@ -138,7 +133,8 @@ AddOfferLogged = (function () {
             PictureUrl:PictureUrl,
             insertOffer:insertOffer,
             onSelectChange:onSelectChange,
-            getStore:getStore
+            getStore:getStore,
+            SelectedStore:SelectedStore
            
             
         };

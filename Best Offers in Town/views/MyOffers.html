@@ -15,7 +15,7 @@
 <div data-role="footer">sdfg</div>
 
 <script type="text/x-kendo-template" id="OffersTemplate">
-    <div data-role="touch" data-bind="events: { tap: activitySelected }" >
+    <div data-role="touch" data-bind="events: { tap: CheckDeleteOffer }" >
         
         <div >
         <div class="overlay"></div>
@@ -25,7 +25,8 @@
              <span class="price">${FinalPrice}  </span> <span class="discount">Lev.</span><br>
               <span class="store"> ${Store().Name}</span> <br>
               <span class="discount">Expires at: ${ExpFormatDate()}</span>
-    ${Store().City}
+               ${Store().City}
+    
    
 
         </div>
@@ -33,3 +34,22 @@
     
 </script>
 
+<!-----modal Check Delete!-->
+<div data-role="modalview" id="modalviewCheckDeleteOffer" style="width: 90%;"  data-model="Offers">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>Delete</span>
+        </div>
+    </div>
+    <div class="allignCenter">
+        Are you sure you want to delete this store?
+        <a class="stretchBtb" type="button" data-role="button" data-bind="click:removeSelectedOffer">Yes</a>
+        <a class="stretchBtb"  type="button" data-role="button" data-click="closemodalviewCheckDeleteOffer">No</a>
+     </div>
+</div>
+<script>
+    function closemodalviewCheckDeleteOffer() {
+        $("#modalviewCheckDeleteOffer").kendoMobileModalView("close");
+
+    }
+    </script>
