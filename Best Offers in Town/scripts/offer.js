@@ -29,9 +29,7 @@ Offer = (function () {
             }
             activity.Pictures.forEach(logArrayElements);
             //console.dir(files);
-            $(document).ready(function() {
-                $("a#phone_number").attr("href","tel-999");
-            });
+            
           
         };
         
@@ -46,7 +44,9 @@ Offer = (function () {
             app.navigate("#home");
             
         };
-        
+        var call=function (){
+            app.navigate("tel:9654")
+        };
        var  planRoute =function(){
            console.log("Planning");
            if (activity.Store().Geo){
@@ -59,6 +59,7 @@ Offer = (function () {
             show: show,
             MoreFromShop:MoreFromShop,
             planRoute:planRoute,
+            call:call,
             activity: function () {
                 return activity;
             },

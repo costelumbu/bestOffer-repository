@@ -379,6 +379,7 @@ var Offers = (function () {
                    userViewModel.set("PriceMin",0);
                     userViewModel.set("PriceMax",500); 
                     userViewModel.set("catFilter","");
+                     userViewModel.set("cityFilter","");
                   applyFilter();
                 $("#homeTitle").text("Best Offers");
                    } ; 
