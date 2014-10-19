@@ -29,6 +29,9 @@ Offer = (function () {
             }
             activity.Pictures.forEach(logArrayElements);
             //console.dir(files);
+            $(document).ready(function() {
+                $("a#phone_number").attr("href","tel-999");
+            });
           
         };
         

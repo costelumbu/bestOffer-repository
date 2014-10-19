@@ -19,7 +19,8 @@
             <h2 id="personName" class="person-name" data-bind='text: Title'></h2>
              <span id="activityDate" class="time-span" data-bind="text: CreatedAtFormatted"></span>
 
-            Price:<span data-bind="text:FinalPrice" ></span> Lev.<br>
+            Initial Price:<span data-bind="text:InitialPrice" ></span> Lev.<br>
+            Final Price:<span data-bind="text:FinalPrice" ></span> Lev.<br>
             <span data-bind="text:Discount"></span>% discount<br>
             Description: <span data-bind="text:Description" ></span><br>
       </div> 
@@ -34,7 +35,8 @@
                         <i></i> <a data-role="button" data-icon="globe" data-click="Offer.planRoute">Plan Route</a>
                     </li>
                     <li>
-                        <i></i> <a data-role="button" data-icon="phone">Call the Store</a>
+                        <i></i> <a id="phone_number" data-role="button" data-icon="phone">Call the Store</a>
+                        <a href="tel:18008675309">Call Jenny!</a>
                     </li>
                     <li>
                         <i></i> <a data-role="button" data-icon="details" data-click="Offer.MoreFromShop" data-transition="none">More offers from this shop</a>
