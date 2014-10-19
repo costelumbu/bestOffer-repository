@@ -68,7 +68,7 @@ var Map = (function () {
                                 var contentString = '<div id="content">' +
                                       '<img src="'+ data[i].PictureUrl() +'">' +
                                       '<h2 class="offer-name">' + data[i].Title + '</h2>' +
-                                    '<p>Initial Price: <span class="initial-price">' + data[i].InitialPrice + '</span> Final Price: <span class="final-price">' + data[i].FinalPrice + '</span></p>' +
+                                    '<p><span class="initial-price">Initial Price: ' + data[i].InitialPrice + '</span> Final Price: <span class="final-price">' + data[i].FinalPrice + '</span></p>' +
                                     '<p class="expire">Expiration: ' + data[i].ExpFormatDate() + '</p>' +
                                 '</div>';
                                 google.maps.event.addListener(marker, "click", function () {
