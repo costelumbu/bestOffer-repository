@@ -145,7 +145,7 @@ var Offers = (function () {
                     $('#no-activities-span').show();
                 }
             },
-           // filter:{field: "isActive", operator:"eq", value:true},
+            filter:{field: "Store().City", operator:"eq", value:"Sofia"},
            // serverFiltering: true,
            // autoSync: true,
             sort: {
@@ -236,7 +236,7 @@ var Offers = (function () {
             cityFilter:'',
             
             CurrentGeo:new Everlive.GeoPoint(),
-            CurrentCity:'',
+            CurrentCity:'Sofia',
             AddressGeo:new Everlive.GeoPoint(),
             
             moreOffers:false,
@@ -274,14 +274,14 @@ var Offers = (function () {
             Offers.stores.remove(itemToDelete);
             Offers.stores.sync();
             $("#modalviewCheckDeleteStore").kendoMobileModalView("close");
-           // var x=Offers.offers.get(item.Id);
+            //var x=Offers.offers.get(item.Id);
            /* Offers.offers.fetch(function(){
                   var data = this.data();
                   console.log(data.length);
                 for(var i=0; i<data.length; i++){
-                 // console.log(data[i].StoreID);
-                    if (data[i].StoreID[0]===item.Id){
+                    if (data[i].StoreID[0]===itemToDelete.Id){
                         console.log("delete");
+                        Offers.offers.remove(data[i]);
                     }
                     }
                 });*/
@@ -291,6 +291,22 @@ var Offers = (function () {
            // app.navigate('views/insideOffer.html?uid=' + e.data.uid);
         };
        
+        
+         var OfferToDelete
+         var CheckDeleteOffer = function(e){
+             $("#modalviewCheckDeleteOffer").kendoMobileModalView("open");
+             console.log( e.data);
+            OfferToDelete=e.data;
+            console.log(OfferToDelete.Id);
+        }
+        var removeSelectedOffer = function () {
+            console.log("remove offer")
+           
+            Offers.offers.remove(OfferToDelete);
+            Offers.offers.sync();
+            $("#modalviewCheckDeleteOffer").kendoMobileModalView("close");
+           
+        };
 
         // Logout user
         var logout = function () {
@@ -421,6 +437,8 @@ var Offers = (function () {
             activitySelected: activitySelected,
             removeSelectedStore:removeSelectedStore,
             CheckDeleteStore:CheckDeleteStore,
+            removeSelectedOffer:removeSelectedOffer,
+            CheckDeleteOffer:CheckDeleteOffer,
             logout: logout,
             userViewModel:userViewModel,
             init:init,
