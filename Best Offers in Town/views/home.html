@@ -170,6 +170,8 @@
     <div data-role="touch" data-bind="events: { tap: activitySelected }" >
         
         <div >
+        <div class="overlay"></div>
+        <div class="discount-overlay">${calculateDiscount()}%</div>
      <img class="homeLine" data-bind="attr:{src: PictureUrl}" alt="styles/images/avatar.png" width="40%" />
              <span class="title">${Title}</span><br>
              <span class="price">${FinalPrice}  </span> <span class="discount">Lev.</span><br>
@@ -309,6 +311,17 @@
     {
         background-color: #eaf1f5;
     }
+    .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 80%;
+            width: 40%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 10;
+            -webkit-clip-path: polygon(100% 30%, 100% 100%, 0 100%);
+    }
+
 </style>            
 <script>
 
