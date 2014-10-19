@@ -145,7 +145,7 @@ var Offers = (function () {
                     $('#no-activities-span').show();
                 }
             },
-           // filter:{field: "isActive", operator:"eq", value:true},
+            filter:{field: "Store().City", operator:"eq", value:"Sofia"},
            // serverFiltering: true,
            // autoSync: true,
             sort: {
@@ -236,7 +236,7 @@ var Offers = (function () {
             cityFilter:'',
             
             CurrentGeo:new Everlive.GeoPoint(),
-            CurrentCity:'',
+            CurrentCity:'Sofia',
             AddressGeo:new Everlive.GeoPoint(),
             
             moreOffers:false,
