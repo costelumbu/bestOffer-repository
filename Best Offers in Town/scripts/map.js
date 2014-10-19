@@ -40,28 +40,35 @@ var Map = (function () {
                             initialLocation = new google.maps.LatLng(42.6975100, 23.3241500);
                             map.setCenter(initialLocation);
                         }
+                PlacePins();
             }
             var PlacePins = function(){
                        
-                        console.log("place pins")
-                        Offers.stores.fetch(function() {
-                            infowindow = new google.maps.InfoWindow({
+                        var data = Offers.offers.view();
+                        console.log(data);
+                        
+                        infowindow = new google.maps.InfoWindow({
                                 content: "holding...",
                                 maxWidth: 320
                             });
-                            var data = this.data();
-                            for (var i = 0; i < data.length; i++) {
+                for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+              }
+                markers = [];
+                    
+                        for (var i = 0; i < data.length; i++) {
+                            if(data[i].Store().Geo){ 
                                 var marker = new google.maps.Marker({
-                                    position: new google.maps.LatLng(data[i].Geo.latitude, data[i].Geo.longitude),
+                                    position: new google.maps.LatLng(data[i].Store().Geo.latitude, data[i].Store().Geo.longitude),
                                     map: map,
                                     animation: google.maps.Animation.DROP,
-                                    html: data[i].Name + "<br/>" + contentString
+                                    html: data[i].Title + "<br/>" + contentString
                                   });
                                 markers.push(marker);
                                 var contentString = '<div id="content">'+
                                   '<div id="siteNotice">'+
                                   '</div>'+
-                                  '<h1 id="firstHeading" class="firstHeading">' + data[i].Name + '</h1>'+
+                                  '<h1 id="firstHeading" class="firstHeading">' + data[i].Title + '</h1>'+
                                   '<div id="bodyContent">'+
                                   '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
                                   'sandstone rock formation in the southern part of the '+
@@ -85,8 +92,11 @@ var Map = (function () {
                                   //  console.log(map.getBounds());
                                     infowindow.open(map, this);
                                 });
-                            }              
-                        });
+                        }
+                            }        
+                        
+                        console.log("place pins")
+                        
                         for (var i = 0; i < markers.length; i++) {
                           //  console.log(markers[i]);
                             markers[i].setVisible(true);
@@ -101,17 +111,8 @@ var Map = (function () {
             if (status == google.maps.GeocoderStatus.OK) {
                 res = results[0].geometry.location;
                 var parsedAddress = new Everlive.GeoPoint(res.lng(), res.lat())
-               /* Offers.stores.fetch(function() {
-                    var dataItem = this.get(id);
-                    console.log(parsedAddress);
-                    dataItem.set("GeoTemp", parsedAddress);
-                    this.sync();
-                })*/
-               // console.log(parsedAddress);
-                Offers.userViewModel.set("AddressGeo",parsedAddress);
-               // console.log( Offers.userViewModel.get("AddressGeo"));             
+                Offers.userViewModel.set("AddressGeo",parsedAddress);          
             } else {
-                //alert(errorMessages(status));
             }
             });
         }
@@ -136,9 +137,6 @@ var Map = (function () {
                         draggable: true
                     });
                     
-                   /* google.maps.event.addListener(directionsRenderer, 'directions_changed', function () {
-                        computeTotalDistanceforRoute(directionsRenderer.directions);
-                    });*/
                     
                     request = {
                         origin: origin,
