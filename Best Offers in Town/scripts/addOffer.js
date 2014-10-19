@@ -26,8 +26,9 @@ AddOffer = (function () {
                                 dataSource: files,
                                template: "<img src='#: data #'width=90%>"
                                });  
-             alert("Your offer is succesfully added")
              app.navigate("views/home.html");
+             alert("Your offer is succesfully added")
+             
         };
         var init= function(){
             offerModel = kendo.observable({

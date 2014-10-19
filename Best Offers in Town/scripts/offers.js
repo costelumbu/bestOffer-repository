@@ -81,64 +81,39 @@ var Offers = (function () {
             },
            
             Store: function(){
-                var storeName=[{}];
                 var id=this.get('StoreID');
+                var dataItem
                 StoresDataSource.fetch(function() {
-                    for (var i=0; i<id.length; i++){
-                        var dataItem = StoresDataSource.get(id[i]);
-                        if (dataItem){storeName.push(dataItem.Name)};
-                    }
+                         dataItem = StoresDataSource.get(id[0]);
                 });
-                storeName.shift();
-                
-               return storeName
+
+                 return dataItem ? {
+                    Name:dataItem.Name,
+                    Geo: dataItem.Geo,
+                    City: dataItem.City
+                } :{}
+              
             },
-            checkStoreActive: function(){
-                var id=this.get('StoreID');
-                var isActive=true;
-                StoresDataSource.fetch(function() {
-                    for (var i=0; i<id.length; i++){
-                        var dataItem = StoresDataSource.get(id[i]).isActive;
-                        if (dataItem=== false){isActive=false}
-                    }
-                    //console.log(this.isActive);
-                });
-                return {isActive:isActive}
-            },
-             City: function(){
-               var storeCity=[{}];
-                var id=this.get('StoreID');
-                StoresDataSource.fetch(function() {
-                    for (var i=0; i<id.length; i++){
-                        var dataItem = StoresDataSource.get(id[i]);
-                        if (dataItem){storeCity.push(dataItem.City);}
-                        
-                    }
-                });
-                storeCity.shift();
-                 
-                //console.log(storeCity);
-               return {CityName: storeCity[0]}
-                
-               
-            },
+           
      
             User: function () {
                 var stores=[{}];
+                var dataItem;
                 var id=this.get('StoreID');
                 StoresDataSource.fetch(function() {
-                    for (var i=0; i<id.length; i++){
-                        var dataItem = StoresDataSource.get(id[i]);
-                       // console.log(dataItem);
-                        stores.push(dataItem.UserId);
-                    }
+
+                        dataItem = StoresDataSource.get(id[0]);
+                      
                 });
-                stores.shift();
-                var userId = stores[0];
+               // stores.shift();
+                
+                if (dataItem){ var userId = dataItem.UserId;
+               // console.log(userId);
+                }
                 var user = $.grep(UsersData, function (e) {
                     return e.Id === userId;
                 })[0];
-
+                
                 return user ? {
                     UserId:userId,
                     CompanyName: user.CompanyName,
@@ -260,7 +235,7 @@ var Offers = (function () {
             catFilter:'',
             cityFilter:'',
             
-            CurrentGeo:'',
+            CurrentGeo:new Everlive.GeoPoint(),
             CurrentCity:'',
             AddressGeo:new Everlive.GeoPoint(),
             
@@ -286,12 +261,19 @@ var Offers = (function () {
 
             app.navigate('views/insideOffer.html?uid=' + e.data.uid);
         };
-        var removeSelectedStore = function (e) {
-            console.log( e.data);
-            var item=e.data;
-            console.log(item.Id);
-            Offers.stores.remove(item);
+        var itemToDelete
+         var CheckDeleteStore = function(e){
+             $("#modalviewCheckDeleteStore").kendoMobileModalView("open");
+             console.log( e.data);
+            itemToDelete=e.data;
+            console.log(itemToDelete.Id);
+        }
+        var removeSelectedStore = function () {
+            console.log("remove store")
+           
+            Offers.stores.remove(itemToDelete);
             Offers.stores.sync();
+            $("#modalviewCheckDeleteStore").kendoMobileModalView("close");
            // var x=Offers.offers.get(item.Id);
            /* Offers.offers.fetch(function(){
                   var data = this.data();
@@ -308,6 +290,7 @@ var Offers = (function () {
             
            // app.navigate('views/insideOffer.html?uid=' + e.data.uid);
         };
+       
 
         // Logout user
         var logout = function () {
@@ -339,10 +322,10 @@ var Offers = (function () {
                         "operator":"startswith",
                         "value":userViewModel.get("catFilter")},
                     {
-                        "field":"City().CityName",
+                        "field":"Store().City",
                         "operator":"startswith",
-                        "value":userViewModel.get("cityFilter")},
-                    {field: "isActive", operator:"eq", value:true},
+                        "value":userViewModel.get("cityFilter")}
+                   
 
                  ]},
             
@@ -377,10 +360,10 @@ var Offers = (function () {
                    } ; 
          var removeAllFilters = function(){
                    console.log("remove all");
-                  userViewModel.set("PriceMin",0);
+                   userViewModel.set("PriceMin",0);
                     userViewModel.set("PriceMax",500); 
                     userViewModel.set("catFilter","");
-                   Offers.offers.filter({field: "isActive", operator:"eq", value:true});
+                  applyFilter();
                 $("#homeTitle").text("Best Offers");
                    } ; 
        
@@ -392,7 +375,7 @@ var Offers = (function () {
             app.navigate("#home")
             
         }
-         var MyOffers = function(){
+         var MyOffers2 = function(){
             var thisUserId= userViewModel.get("data").Id;
                          console.log(thisUserId)
             Offers.offers.filter({ field: "User().UserId", operator:"eq", value:thisUserId }); 
@@ -402,14 +385,26 @@ var Offers = (function () {
             app.navigate("#home");
             
         };
+         var MyOffers = function(){
+            var thisUserId= userViewModel.get("data").Id;
+            console.log(thisUserId)
+            Offers.offers.filter([
+                {"logic":"and",
+                 "filters":[
+                     {field: "User().UserId", operator:"eq", value:thisUserId }
+                    ]},
+            
+                ]);
+            
+        };
           var MyStores = function(){
             var thisUserId= userViewModel.get("data").Id;
             console.log(thisUserId)
             Offers.stores.filter([
                 {"logic":"and",
                  "filters":[
-                     {field: "UserId", operator:"eq", value:thisUserId },
-                    {field: "isActive", operator:"eq", value:true}
+                     {field: "UserId", operator:"eq", value:thisUserId }
+                    
                     ]},
             
                 ]);
@@ -417,7 +412,7 @@ var Offers = (function () {
         };
         var show= function(){
             console.log("in show ")
-           console.log( Offers.userViewModel.get("AddressGeo"))
+          // console.log( Offers.userViewModel.get("AddressGeo"))
         }
 
         return {
@@ -425,6 +420,7 @@ var Offers = (function () {
             stores: offersModel.stores,
             activitySelected: activitySelected,
             removeSelectedStore:removeSelectedStore,
+            CheckDeleteStore:CheckDeleteStore,
             logout: logout,
             userViewModel:userViewModel,
             init:init,
