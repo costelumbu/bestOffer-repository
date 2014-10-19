@@ -63,3 +63,14 @@ left-drawer {
     border: none;
     border-radius: 0;
 }
+.discount-overlay {
+    position: fixed;
+    left: 75%;
+    margin-top: -65px;
+    margin-left: -150px;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 11;
+    color: #fff;
+    font-weight: bold;
+}
