@@ -70,6 +70,7 @@ var Map = (function () {
                                       '<h2 class="offer-name">' + data[i].Title + '</h2>' +
                                     '<p><span class="initial-price">Initial Price: ' + data[i].InitialPrice + '</span> Final Price: <span class="final-price">' + data[i].FinalPrice + '</span></p>' +
                                     '<p class="expire">Expiration: ' + data[i].ExpFormatDate() + '</p>' +
+                                                                       
                                 '</div>';
                                 google.maps.event.addListener(marker, "click", function () {
                                    // console.log(this.getPosition());
