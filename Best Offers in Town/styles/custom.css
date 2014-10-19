@@ -74,3 +74,10 @@ left-drawer {
     color: #fff;
     font-weight: bold;
 }
+#content img {
+    width: 130px;
+    height: auto;
+}
+.initial-price {
+    text-decoration: line-through;
+}

@@ -23,7 +23,7 @@ var Map = (function () {
         
         
         var show = function () {
-           // directionsRenderer.setMap(null);
+           directionsRenderer.setMap(null);
              if(navigator.geolocation) {
                             navigator.geolocation.getCurrentPosition(function(position) {
                                 initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -65,26 +65,12 @@ var Map = (function () {
                                     html: data[i].Title + "<br/>" + contentString
                                   });
                                 markers.push(marker);
-                                var contentString = '<div id="content">'+
-                                  '<div id="siteNotice">'+
-                                  '</div>'+
-                                  '<h1 id="firstHeading" class="firstHeading">' + data[i].Title + '</h1>'+
-                                  '<div id="bodyContent">'+
-                                  '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-                                  'sandstone rock formation in the southern part of the '+
-                                  'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-                                  'south west of the nearest large town, Alice Springs; 450&#160;km '+
-                                  '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-                                  'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-                                  'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-                                  'Aboriginal people of the area. It has many springs, waterholes, '+
-                                  'rock caves and ancient paintings. Uluru is listed as a World '+
-                                  'Heritage Site.</p>'+
-                                  '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-                                  'http://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-                                  '(last visited June 22, 2009).</p>'+
-                                  '</div>'+
-                                  '</div>';
+                                var contentString = '<div id="content">' +
+                                      '<img src="'+ data[i].PictureUrl() +'">' +
+                                      '<h2 class="offer-name">' + data[i].Title + '</h2>' +
+                                    '<p>Initial Price: <span class="initial-price">' + data[i].InitialPrice + '</span> Final Price: <span class="final-price">' + data[i].FinalPrice + '</span></p>' +
+                                    '<p class="expire">Expiration: ' + data[i].ExpFormatDate() + '</p>' +
+                                '</div>';
                                 google.maps.event.addListener(marker, "click", function () {
                                    // console.log(this.getPosition());
                                     infowindow.setContent(this.html);
