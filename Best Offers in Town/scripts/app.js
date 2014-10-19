@@ -72,7 +72,7 @@ var AppHelper = {
     // Return user profile picture url
     resolveProfilePictureUrl: function (id) {
         if (id && id !== emptyGuid) {
-            console.log(id);
+           // console.log(id);
             return el.Files.getDownloadUrl(id);
         } else {
             return 'styles/images/appbuilder.png';

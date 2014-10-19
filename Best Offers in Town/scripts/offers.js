@@ -81,60 +81,21 @@ var Offers = (function () {
             },
            
             Store: function(){
-                var storeName=[{}];
                 var id=this.get('StoreID');
+                var dataItem
                 StoresDataSource.fetch(function() {
-                    for (var i=0; i<id.length; i++){
-                        var dataItem = StoresDataSource.get(id[i]);
-                        if (dataItem){storeName.push(dataItem.Name)}
-                    }
+                         dataItem = StoresDataSource.get(id[0]);
                 });
-                storeName.shift();
-                
-               return storeName
+
+               // if (dataItem){ return dataItem.Name}
+                 return dataItem ? {
+                    Name:dataItem.Name,
+                    Geo: dataItem.Geo,
+                    City: dataItem.City
+                } :{}
+              
             },
-            StoreGeo: function(){
-                var storeGeo=new Everlive.GeoPoint();
-                var id=this.get('StoreID');
-                StoresDataSource.fetch(function() {
-                    for (var i=0; i<id.length; i++){
-                        var dataItem = StoresDataSource.get(id[i]);
-                        if (dataItem){storeName.push(dataItem.Name)};
-                    }
-                });
-                storeName.shift();
-                
-               return storeName
-            },
-            checkStoreActive: function(){
-                var id=this.get('StoreID');
-                var isActive=true;
-                StoresDataSource.fetch(function() {
-                    for (var i=0; i<id.length; i++){
-                        var dataItem = StoresDataSource.get(id[i]).isActive;
-                        if (dataItem=== false){isActive=false}
-                    }
-                    //console.log(this.isActive);
-                });
-                return {isActive:isActive}
-            },
-             City: function(){
-               var storeCity=[{}];
-                var id=this.get('StoreID');
-                StoresDataSource.fetch(function() {
-                    for (var i=0; i<id.length; i++){
-                        var dataItem = StoresDataSource.get(id[i]);
-                        if (dataItem){storeCity.push(dataItem.City);}
-                        
-                    }
-                });
-                storeCity.shift();
-                 
-                //console.log(storeCity);
-               return {CityName: storeCity[0]}
-                
-               
-            },
+           
      
             User: function () {
                 var stores=[{}];
@@ -352,7 +313,7 @@ var Offers = (function () {
                         "operator":"startswith",
                         "value":userViewModel.get("catFilter")},
                     {
-                        "field":"City().CityName",
+                        "field":"Store().City",
                         "operator":"startswith",
                         "value":userViewModel.get("cityFilter")},
                     {field: "isActive", operator:"eq", value:true},

@@ -21,14 +21,14 @@ Offer = (function () {
             offerUid = e.view.params.uid;
             // Get current activity (based on item uid) from Activities model
             activity = Offers.offers.getByUid(offerUid);
-            console.dir(activity);
+            console.dir(activity.Geo);
             kendo.bind(e.view.element, activity, kendo.mobile.ui);
              function logArrayElements(element, index, array) {
-              console.log('a[' + index + '] = ' + element);
+              //console.log('a[' + index + '] = ' + element);
                 files.push(AppHelper.resolvePictureUrl(element));
             }
             activity.Pictures.forEach(logArrayElements);
-            console.dir(files);
+            //console.dir(files);
           
         };
         
