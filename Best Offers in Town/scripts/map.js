@@ -23,7 +23,7 @@ var Map = (function () {
         
         
         var show = function () {
-           // directionsRenderer.setMap(null);
+           directionsRenderer.setMap(null);
              if(navigator.geolocation) {
                             navigator.geolocation.getCurrentPosition(function(position) {
                                 initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -40,44 +40,37 @@ var Map = (function () {
                             initialLocation = new google.maps.LatLng(42.6975100, 23.3241500);
                             map.setCenter(initialLocation);
                         }
+                PlacePins();
             }
             var PlacePins = function(){
                        
-                        console.log("place pins")
-                        Offers.stores.fetch(function() {
-                            infowindow = new google.maps.InfoWindow({
+                        var data = Offers.offers.view();
+                        console.log(data);
+                        
+                        infowindow = new google.maps.InfoWindow({
                                 content: "holding...",
                                 maxWidth: 320
                             });
-                            var data = this.data();
-                            for (var i = 0; i < data.length; i++) {
+                for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+              }
+                markers = [];
+                    
+                        for (var i = 0; i < data.length; i++) {
+                            if(data[i].Store().Geo){ 
                                 var marker = new google.maps.Marker({
-                                    position: new google.maps.LatLng(data[i].Geo.latitude, data[i].Geo.longitude),
+                                    position: new google.maps.LatLng(data[i].Store().Geo.latitude, data[i].Store().Geo.longitude),
                                     map: map,
                                     animation: google.maps.Animation.DROP,
-                                    html: data[i].Name + "<br/>" + contentString
+                                    html: data[i].Title + "<br/>" + contentString
                                   });
                                 markers.push(marker);
-                                var contentString = '<div id="content">'+
-                                  '<div id="siteNotice">'+
-                                  '</div>'+
-                                  '<h1 id="firstHeading" class="firstHeading">' + data[i].Name + '</h1>'+
-                                  '<div id="bodyContent">'+
-                                  '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-                                  'sandstone rock formation in the southern part of the '+
-                                  'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-                                  'south west of the nearest large town, Alice Springs; 450&#160;km '+
-                                  '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-                                  'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-                                  'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-                                  'Aboriginal people of the area. It has many springs, waterholes, '+
-                                  'rock caves and ancient paintings. Uluru is listed as a World '+
-                                  'Heritage Site.</p>'+
-                                  '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-                                  'http://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-                                  '(last visited June 22, 2009).</p>'+
-                                  '</div>'+
-                                  '</div>';
+                                var contentString = '<div id="content">' +
+                                      '<img src="'+ data[i].PictureUrl() +'">' +
+                                      '<h2 class="offer-name">' + data[i].Title + '</h2>' +
+                                    '<p><span class="initial-price">Initial Price: ' + data[i].InitialPrice + '</span> Final Price: <span class="final-price">' + data[i].FinalPrice + '</span></p>' +
+                                    '<p class="expire">Expiration: ' + data[i].ExpFormatDate() + '</p>' +
+                                '</div>';
                                 google.maps.event.addListener(marker, "click", function () {
                                    // console.log(this.getPosition());
                                     infowindow.setContent(this.html);
@@ -85,8 +78,11 @@ var Map = (function () {
                                   //  console.log(map.getBounds());
                                     infowindow.open(map, this);
                                 });
-                            }              
-                        });
+                        }
+                            }        
+                        
+                        console.log("place pins")
+                        
                         for (var i = 0; i < markers.length; i++) {
                           //  console.log(markers[i]);
                             markers[i].setVisible(true);
@@ -101,17 +97,8 @@ var Map = (function () {
             if (status == google.maps.GeocoderStatus.OK) {
                 res = results[0].geometry.location;
                 var parsedAddress = new Everlive.GeoPoint(res.lng(), res.lat())
-               /* Offers.stores.fetch(function() {
-                    var dataItem = this.get(id);
-                    console.log(parsedAddress);
-                    dataItem.set("GeoTemp", parsedAddress);
-                    this.sync();
-                })*/
-               // console.log(parsedAddress);
-                Offers.userViewModel.set("AddressGeo",parsedAddress);
-               // console.log( Offers.userViewModel.get("AddressGeo"));             
+                Offers.userViewModel.set("AddressGeo",parsedAddress);          
             } else {
-                //alert(errorMessages(status));
             }
             });
         }
@@ -136,9 +123,6 @@ var Map = (function () {
                         draggable: true
                     });
                     
-                   /* google.maps.event.addListener(directionsRenderer, 'directions_changed', function () {
-                        computeTotalDistanceforRoute(directionsRenderer.directions);
-                    });*/
                     
                     request = {
                         origin: origin,
